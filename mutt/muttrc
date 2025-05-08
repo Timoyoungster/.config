@@ -1,0 +1,97 @@
+##############
+# Connection #
+##############
+
+source "gpg -d ~/.config/mutt/creds.gpg |"
+
+############
+# Settings #
+############
+
+set mail_check = 60
+set copy = no
+set sort = threads
+set sort_thread_groups = last-date-sent
+set sort_aux = date-sent
+
+set pager_stop = yes     # dont go to next mail on page down/up
+
+set delete = yes
+
+set mailcap_path = ~/.config/mutt/mailcap
+
+########
+# View #
+########
+
+auto_view text/html
+alternative_order text/plain text/enriched text/html
+
+############
+# Keybinds #
+############
+
+# Navigation
+# ----------------------------------------------------
+
+bind index,pager,attach  g         noop
+bind index,pager         s         noop
+# bind generic             z         noop
+# bind index,pager         d         noop
+# bind index,pager         c         noop
+# bind generic,pager       t         noop
+# bind generic,index,pager <Space>   noop
+# bind generic,index,pager -         noop
+
+bind generic             gg        first-entry
+bind generic,index       G         last-entry
+bind pager               gg        top
+bind pager               G         bottom
+bind pager               k         previous-line
+bind pager               j         next-line
+bind generic,index,pager \Cd       half-down
+bind generic,index,pager \Cu       half-up
+bind pager               \Cp       previous-entry
+bind pager               \Cn       next-entry
+bind generic             zt        current-top
+bind generic             zz        current-middle
+bind generic             zb        current-bottom
+bind index               za        collapse-thread
+bind index               zA        collapse-all
+bind index,pager         N         search-opposite
+bind index               <Backtab> previous-new-then-unread
+
+# Go to folder...
+macro index,pager gi "<change-folder>=INBOX<enter>"       "open inbox"
+macro index,pager gd "<change-folder>$postponed<enter>"   "open drafts"
+macro index,pager gs "<change-folder>$record<enter>"      "open sent"
+macro index,pager gt "<change-folder>$trash<enter>"       "open trash"
+macro index,pager gw "<change-folder>=Wichtig<enter>"     "open important"
+macro index,pager gj "<change-folder>=JKU<enter>"         "open JKU"
+macro index,pager go "<change-folder>=Other<enter>"       "open Other"
+macro index,pager g? "<change-folder>?"                   "open mailbox..."
+
+# move to folder...
+macro index,pager si "<save-message>=INBOX<enter>y"       "move to inbox"
+macro index,pager sw "<save-message>=Wichtig<enter>y"     "move to important"
+macro index,pager sj "<save-message>=JKU<enter>y"         "move to JKU"
+macro index,pager so "<save-message>=Other<enter>y"       "move to Other"
+macro index,pager s? "<save-message>?"                    "move to mailbox..."
+
+# look at urls
+macro index,pager         \Cs       "<pipe-message> urlscan<Enter>"       "call urlscan to extract URLs"
+
+# Actions
+# ----------------------------------------------------
+
+bind index,pager    a   group-reply
+bind index          m   mail
+
+# macro index,pager    gx  "<pipe-message>urlview<Enter>"                                   "call urlview to extract URLs out of a message"
+# macro attach,compose gx  "<pipe-entry>urlview<Enter>"                                     "call urlview to extract URLs out of a message"
+
+# Command Line
+# ----------------------------------------------------
+
+bind editor \Cp history-up
+bind editor \Cn history-down

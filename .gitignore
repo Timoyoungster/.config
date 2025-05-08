@@ -1,0 +1,50 @@
+*
+!/.gitignore
+!setup.sh
+!/hypr
+!hypr/*
+!/foot
+!foot/*
+!/tmux
+!tmux/*
+!/wireplumber
+!wireplumber/*
+!/zathura
+!zathura/*
+!/zsh
+!zsh/*
+!/scripts
+!scripts/*
+!/ex
+!ex/*
+!/mako
+!mako/*
+!/ghostty
+!ghostty/*
+!/feh
+!feh/*
+!/tofi
+!tofi/*
+
+# special handling for nchat
+!/nchat
+!/nchat/key.conf
+!/nchat/ui.conf
+
+# special handling for w3m
+!/w3m
+!w3m/config
+!w3m/keymap
+!w3m/bookmark.html
+!/w3m/cgi-bin
+!w3m/cgi-bin/*
+
+# special handling for w3m
+!/mutt/muttrc
+!mutt/
+
+# never show the ssh stuff
+/zsh/ssh-stuff
+
+# never show the password stuff
+/zsh/password-stuff

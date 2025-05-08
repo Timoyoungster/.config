@@ -1,0 +1,99 @@
+#!/bin/zsh
+
+#####################################################
+# CTRL-T - new tmux session with selected directory #
+#####################################################
+
+tmux-sessionizer() {
+  # restore fd's
+  exec </dev/tty
+  exec <&1
+
+  if [[ $# -eq 1 ]]; then
+    selected=$1
+  else
+    selected=$((find $SEARCHPATHS -mindepth 0 -maxdepth 1 -type d && ( tmux ls | cut -d : -f 1 ) ) | fzf --bind "ctrl-y:accept")
+  fi
+
+  if [[ -z $selected ]]; then
+    zle reset-prompt
+    return 0
+  fi
+
+  selected_name=$(basename "$selected" | tr -d . | head -c 8)
+  tmux_running=$(pgrep tmux)
+
+  if [[ -z $TMUX ]]; then
+    tmux new -As $selected_name -c $selected
+  else
+    tmux new -ds $selected_name -c $selected 2> /dev/null
+    tmux switch-client -t $selected_name
+  fi
+  zle reset-prompt
+}
+
+zle     -N            tmux-sessionizer
+bindkey -M emacs '^T' tmux-sessionizer
+bindkey -M vicmd '^T' tmux-sessionizer
+bindkey -M viins '^T' tmux-sessionizer
+
+#######################################
+# CTRL-S - cd into selected directory #
+#######################################
+
+fzf-file-widget() {
+  setopt localoptions pipefail no_aliases 2> /dev/null
+  f=$(find $SEARCHPATHS -mindepth 0 -maxdepth 2 -type d | fzf --bind "ctrl-y:accept")
+  if [ -z $f ]; then; else
+    cd $f
+  fi
+  zle reset-prompt
+}
+
+zle     -N            fzf-file-widget
+bindkey -M emacs '^S' fzf-file-widget
+bindkey -M vicmd '^S' fzf-file-widget
+bindkey -M viins '^S' fzf-file-widget
+
+fzf-history-widget() {
+  setopt extendedglob
+
+  FC_ARGS="-l -n"
+  CANDIDATE_LEADING_FIELDS=1
+
+  history_cmd="fc ${=FC_ARGS} -1 0 | awk '!seen[\$0]++'"
+
+  if (( $#BUFFER )); then
+    candidates=(${(f)"$(eval $history_cmd | fzf --bind 'ctrl-y:accept' ${=ZSH_FZF_HISTORY_SEARCH_FZF_ARGS} ${=ZSH_FZF_HISTORY_SEARCH_FZF_EXTRA_ARGS} -q "${=ZSH_FZF_HISTORY_SEARCH_FZF_QUERY_PREFIX}$BUFFER")"})
+  else
+    candidates=(${(f)"$(eval $history_cmd | fzf --bind 'ctrl-y:accept' ${=ZSH_FZF_HISTORY_SEARCH_FZF_ARGS} ${=ZSH_FZF_HISTORY_SEARCH_FZF_EXTRA_ARGS})"})
+  fi
+
+  if [ -n "$candidates" ]; then
+    if (( ! $CANDIDATE_LEADING_FIELDS == 1 )); then
+      BUFFER="${candidates[@]/(#m)[0-9 \-\:]##/$(
+      printf '%s' "${${(As: :)MATCH}[${CANDIDATE_LEADING_FIELDS},-1]}" | sed 's/%/%%/g'
+      )}"
+    else
+      BUFFER="${(j| && |)candidates}"
+    fi
+    zle vi-fetch-history -n $BUFFER
+    zle end-of-line
+  fi
+  zle reset-prompt
+}
+
+zle     -N            fzf-history-widget
+bindkey -M emacs '^R' fzf-history-widget
+bindkey -M vicmd '^R' fzf-history-widget
+bindkey -M viins '^R' fzf-history-widget
+
+run-fg() {
+  fg
+  zle reset-prompt
+}
+
+zle     -N            run-fg
+bindkey -M emacs '^Z' run-fg
+bindkey -M vicmd '^Z' run-fg
+bindkey -M viins '^Z' run-fg

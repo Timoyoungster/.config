@@ -1,0 +1,13 @@
+anchor = top
+width = 100%
+height = 32
+horizontal = true
+font-size = 10
+prompt-text = " run: "
+result-spacing = 10
+font = "/usr/share/fonts/TTF/CascadiaMono.ttf"
+outline-width = 0
+border-width = 0
+background-color = #101216
+selection-color = #5FD7FF
+terminal = ghostty

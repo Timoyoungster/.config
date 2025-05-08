@@ -1,0 +1,12 @@
+default-timeout=3000
+# ignore-timeout=1
+
+# design
+font=CaskaydiaMonoNerdFontMono
+background-color=#151515FF
+text-color=#AAAAAAFF
+border-color=#23CBD6EE
+border-size=2
+border-radius=10
+progress-color=source #595959AA
+outer-margin=10

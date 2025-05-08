@@ -1,0 +1,26 @@
+# theme = 0x96f
+# theme = darkmatrix
+# theme = Dimidium
+# theme = FirefoxDev
+# theme = Framer
+theme = GitHub Dark
+# theme = Hardcore
+# theme = matrix
+# theme = Oxocarbon
+# theme = rose-pine
+# theme = Shaman
+# theme = Wryan
+
+font-family = "Cascadia Mono"
+font-size = 16
+
+mouse-hide-while-typing = true
+cursor-style = block
+
+shell-integration-features = no-cursor
+
+# for macos use macos-titlebar-style = hidden
+window-decoration = false
+window-padding-x = 8
+window-padding-y = 8
+window-padding-balance = true
