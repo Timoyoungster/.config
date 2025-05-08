@@ -27,6 +27,8 @@
 !tofi/*
 !/yay
 !yay/*
+!/nvim
+!nvim/*
 
 # special handling for nchat
 !/nchat
