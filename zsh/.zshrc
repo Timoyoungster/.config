@@ -229,5 +229,3 @@ if [[ -f ~/.config/zsh/ssh-stuff ]]
 then
   source ~/.config/zsh/ssh-stuff
 fi
-
-source ~/.config/zsh/password-stuff
