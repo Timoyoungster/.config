@@ -25,6 +25,8 @@
 !feh/*
 !/tofi
 !tofi/*
+!/yay
+!yay/*
 
 # special handling for nchat
 !/nchat
