@@ -182,10 +182,10 @@ function tx () {
     tmux list-sessions
   else
     if [[ -z $TMUX ]]; then
-      tmux new -As $1
+      tmux new -As $@
    else
       tmux new -ds $1 2> /dev/null
-      tmux switch-client -t $1
+      tmux switch-client -t $@
     fi
   fi
 }
