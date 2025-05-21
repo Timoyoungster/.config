@@ -2,7 +2,7 @@
 # Connection #
 ##############
 
-source "gpg -d ~/.config/mutt/creds.gpg |"
+source "op inject -i ~/.config/mutt/creds |"
 
 ############
 # Settings #
@@ -95,3 +95,34 @@ bind index          m   mail
 
 bind editor \Cp history-up
 bind editor \Cn history-down
+
+#########
+# COLOR #
+#########
+
+# color normal  grey default
+color attachment brightyellow default
+color hdrdefault cyan default
+color indicator black cyan
+color markers brightred default
+color quoted  green default
+color signature cyan default
+color status  black cyan
+color tilde blue default
+color tree  brightcyan default
+
+color index red default ~P
+color index red default ~D
+color index magenta default ~T
+
+color header brightgreen default ^From:
+color header brightcyan default ^To:
+color header brightcyan default ^Reply-To:
+color header brightcyan default ^Cc:
+color header brightblue default ^Subject:
+
+color body  brightred default [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
+# identifies email addresses
+
+color body  brightblue default (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
+# identifies URLs
