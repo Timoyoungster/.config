@@ -1,0 +1,22 @@
+#!/bin/sh
+
+function brightness() {
+	if [ "$#" -eq 0 ]
+	then
+		DISPLAYS=$(ddcutil detect | grep "Display" | awk '{print $2}')
+		while IFS= read -r line; do
+			echo "Display $line: $(ddcutil getvcp 10 -d $line)"
+		done <<< "$DISPLAYS"
+	else
+		echo $1
+		if [ $1 -le 100 ] && [ $1 -ge 0 ]
+		then
+			DISPLAYS=$(ddcutil detect | grep "Display" | awk '{print $2}')
+			while IFS= read -r line; do
+				ddcutil setvcp 10 $1 -d $line
+			done <<< "$DISPLAYS"
+		else
+			echo "Invalid brightness value!"
+		fi
+	fi
+}
