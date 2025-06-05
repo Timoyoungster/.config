@@ -225,7 +225,16 @@ function zmk_build_both () {
   west build -d build/right -b nice_nano_v2 -- -DSHIELD=cradio_right -DZMK_CONFIG="/home/timo/github/zmk-config/config" -DZMK_EXTRA_MODULES="/home/timo/github/zmk-config/"
 }
 
+##########
+# SOURCE #
+##########
+
 if [[ -f ~/.config/zsh/ssh-stuff ]]
 then
   source ~/.config/zsh/ssh-stuff
+fi
+
+if [[ -f ~/.config/scripts/set_brightness ]]
+then
+  source ~/.config/scripts/set_brightness
 fi
