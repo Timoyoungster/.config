@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 ln -s ~/.config/zsh/.zshrc ~/.zshrc
 ln -s ~/.config/task/taskrc ~/.taskrc
 
