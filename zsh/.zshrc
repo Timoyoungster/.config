@@ -126,6 +126,7 @@ alias zbt='zig build test'
 alias zat='zathura '
 alias tts='piper-tts --model "/usr/share/piper-voices/en/en_US/ryan/high/en_US-ryan-high.onnx" --output-raw | aplay -r 22050 -f S16_LE -t raw -'
 alias xopen='xdg-open '
+alias cal='cal -m '
 
 eval $(thefuck --alias)
 
