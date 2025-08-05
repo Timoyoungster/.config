@@ -239,3 +239,6 @@ if [[ -f ~/.config/scripts/set_brightness ]]
 then
   source ~/.config/scripts/set_brightness
 fi
+
+# nvm
+source /usr/share/nvm/init-nvm.sh
