@@ -102,7 +102,6 @@ alias imgcat='img2sixel' // better: viu
 alias clock='tclock' # cargo install clock-tui
 alias weather='curl wttr.in/48.11,14.19'
 alias hextobin='python3 ~/.config/scripts/hex_to_bin.py $@'
-alias work='virtualboxvm --startvm "Windows"'
 alias wm='w3m -v www.duckduckgo.com'
 alias duck='cat ~/.config/zsh/duck'
 alias cpoeu='wl-copy Ö'
