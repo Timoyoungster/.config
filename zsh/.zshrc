@@ -63,7 +63,8 @@ PROMPT='%F{yellow}%(1j.(%j jobs) .)%f%. %f%% '
 # PATH #
 ########
 
-export PATH=$PATH:$HOME/.cargo/env
+export PATH=$PATH:/home/timo/.cargo/env
+export PATH=$PATH:/home/timo/.cargo/bin
 export PATH=$PATH:/home/timo/go/bin
 export PATH=$PATH:./node_modules/.bin
 export PATH=~/.config/scripts:$PATH
