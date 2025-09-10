@@ -2,7 +2,7 @@
 # Globals #
 ###########
 
-export SEARCHPATHS=( ~/github ~/.config/* ~/downloads/* ~ ~/github/jku ~/work ~/github/project-wasteland/* ~/github/zmk-config/* ~/github/project-wasteland/asm/*)
+export SEARCHPATHS=( ~/github ~/.config/* ~/downloads/* ~ ~/work )
 export WWW_HOME=www.duckduckgo.com
 export SEMESTER=iv
 
@@ -15,6 +15,8 @@ setopt globdots
 
 # case insensitive completion
 autoload -Uz +X compinit && compinit
+
+WORDCHARS=${WORDCHARS//\/[&.;]}
 
 ## case insensitive path-completion
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
@@ -68,14 +70,12 @@ export PATH=$PATH:/home/timo/.cargo/bin
 export PATH=$PATH:/home/timo/go/bin
 export PATH=$PATH:./node_modules/.bin
 export PATH=~/.config/scripts:$PATH
+export PATH=~/.local/bin:$PATH
 
 # texlive paths
 export PATH=$PATH:/usr/local/texlive/2025/bin/x86_64-linux
 export MANPATH=$MANPATH:/usr/local/texlive/2025/texmf-dist/doc/man
 export INFOPATH=$INFOPATH:/usr/local/texlive/2025/texmf-dist/doc/info
-
-# Created by `pipx` on 2024-05-27 16:55:57
-export PATH="$PATH:/home/timo/.local/bin"
 
 ###########
 # Aliases #
