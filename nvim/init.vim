@@ -1,6 +1,6 @@
 set notermguicolors
 set laststatus=0
-colorscheme vim
+silent! colorscheme vim
 
 set ignorecase
 set wildignorecase
