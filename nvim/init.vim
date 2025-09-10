@@ -1,3 +1,5 @@
+syntax on
+
 set notermguicolors
 set laststatus=0
 silent! colorscheme vim
