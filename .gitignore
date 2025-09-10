@@ -31,6 +31,8 @@
 !nvim/*
 !/task
 !task/*
+!/vim
+!vim/*
 
 # special handling for nchat
 !/nchat
