@@ -19,5 +19,5 @@ let mapleader = " "
 let maplocalleader = " "
 
 if has('nvim')
-	source plugins.lua
+	source ~/.config/nvim/plugins.lua
 endif
