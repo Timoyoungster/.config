@@ -13,3 +13,11 @@ set wildchar=<C-n>
 set completeopt=fuzzy
 
 set guicursor=
+
+nnoremap <Space> <Nop>
+let mapleader = " "
+let maplocalleader = " "
+
+if has('nvim')
+	source plugins.lua
+endif
