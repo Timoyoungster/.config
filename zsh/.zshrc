@@ -2,7 +2,6 @@
 # Globals #
 ###########
 
-export SEARCHPATHS=( ~/github ~/.config/* ~/downloads/* ~ ~/work )
 export WWW_HOME=www.duckduckgo.com
 export SEMESTER=iv
 
