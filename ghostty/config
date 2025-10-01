@@ -23,12 +23,12 @@
 # theme = N0tch2k
 # theme = Oxocarbon
 # theme = Raycast_Dark
-theme = rose-pine
+theme = Rose Pine
 # theme = Shaman
 # theme = Wryan
 
 font-family = "Cascadia Mono"
-font-size = 16
+font-size = 20
 
 mouse-hide-while-typing = true
 cursor-style = block

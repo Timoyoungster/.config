@@ -67,7 +67,8 @@ PROMPT='%F{yellow}%(1j.(%j jobs) .)%f%. %f%% '
 export PATH=$PATH:/home/timo/.cargo/env
 export PATH=$PATH:/home/timo/.cargo/bin
 export PATH=$PATH:/home/timo/go/bin
-export PATH=$PATH:./node_modules/.bin
+# export PATH=$PATH:./node_modules/.bin
+export PATH=$PATH:~/.volta/bin
 export PATH=~/.config/scripts:$PATH
 export PATH=~/.local/bin:$PATH
 
