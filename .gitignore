@@ -35,6 +35,8 @@
 !vim/*
 !user-dirs.dirs
 !user-dirs.locale
+!/radian
+!radian/*
 
 # special handling for nchat
 !/nchat
