@@ -37,6 +37,8 @@
 !user-dirs.locale
 !/radian
 !radian/*
+!/bugwarrior
+!bugwarrior/*
 
 # special handling for nchat
 !/nchat

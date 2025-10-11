@@ -1,2 +1,27 @@
 data.location=~/.task
 news.version=3.4.1
+
+# Bugwarrior UDAs
+uda.todoistid.type=string
+uda.todoistid.label=Todoist ID
+uda.todoistcontent.type=string
+uda.todoistcontent.label=Todoist Content
+uda.todoistdescription.type=string
+uda.todoistdescription.label=Todoist Description
+uda.todoistdue.type=date
+uda.todoistdue.label=Todoist Due Date
+uda.todoistdeadline.type=date
+uda.todoistdeadline.label=Todoist Deadline Date
+uda.todoistduration.type=string
+uda.todoistduration.label=Todoist Duration
+uda.todoistsection.type=string
+uda.todoistsection.label=Todoist Section
+uda.todoistassignee.type=string
+uda.todoistassignee.label=Todoist Assignee
+uda.todoistassigner.type=string
+uda.todoistassigner.label=Todoist Assigner
+uda.todoisturl.type=string
+uda.todoisturl.label=Todoist URL
+uda.todoistparentid.type=string
+uda.todoistparentid.label=Todoist Parent ID
+# END Bugwarrior UDAs
