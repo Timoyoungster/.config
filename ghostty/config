@@ -1,7 +1,7 @@
 # theme = 0x96f
 # theme = Builtin Dark
 # theme = carbonfox
-# theme = catppuccin-mocha
+# theme = Catppuccin Mocha
 # theme = CGA
 # theme = Dark+
 # theme = darkmatrix
@@ -18,12 +18,12 @@
 # theme = Konsolas
 # theme = Mathias
 # theme = matrix
-# theme = Monokai Remastered
+theme = Monokai Remastered
 # theme = Monokai Soda
 # theme = N0tch2k
 # theme = Oxocarbon
 # theme = Raycast_Dark
-theme = Rose Pine
+# theme = Rose Pine
 # theme = Shaman
 # theme = Wryan
 
