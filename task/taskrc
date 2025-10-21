@@ -1,6 +1,18 @@
 data.location=~/.task
 news.version=3.4.1
 
+report.custom.description=Custom output format
+report.custom.columns=id,project,due.relative,description.truncated,urgency
+report.custom.sort=due+,project+,id+
+report.custom.filter=status:pending +READY
+
+report.detail.description=Custom verbose output format
+report.detail.columns=id,project,due,description,urgency
+report.detail.sort=due+,project+,id+
+report.detail.filter=status:pending +READY
+
+default.command=custom
+
 # Bugwarrior UDAs
 uda.todoistid.type=string
 uda.todoistid.label=Todoist ID
