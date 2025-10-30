@@ -10,6 +10,8 @@ options(radian.vi_mode_prompt = "\033[0;34m[{}]\033[0m ")
 # but it leads to less elegent layout
 options(radian.indent_lines = TRUE)
 
+options(radian.auto_match = FALSE)
+
 # highlight matching bracket
 options(radian.highlight_matching_bracket = TRUE)
 
