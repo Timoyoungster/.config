@@ -1,0 +1,22 @@
+options(radian.editing_mode = "vi")
+# enable various emacs bindings in vi insert mode
+options(radian.emacs_bindings_in_vi_insert_mode = TRUE)
+# show vi mode state when radian.editing_mode is `vi`
+options(radian.show_vi_mode_prompt = TRUE)
+options(radian.vi_mode_prompt = "\033[0;34m[{}]\033[0m ")
+
+# indent continuation lines
+# turn this off if you want to copy code without the extra indentation;
+# but it leads to less elegent layout
+options(radian.indent_lines = TRUE)
+
+# highlight matching bracket
+options(radian.highlight_matching_bracket = TRUE)
+
+# auto indentation for new line and curly braces
+options(radian.auto_indentation = TRUE)
+options(radian.tab_size = 2)
+
+options(radian.global_history_file = "$XDG_CONFIG_HOME/radian/.radian_history")
+# ignore case in history search
+options(radian.history_search_ignore_case = TRUE)

@@ -1,34 +1,35 @@
 # theme = 0x96f
 # theme = Builtin Dark
-# theme = carbonfox
-# theme = catppuccin-mocha
+# theme = Carbonfox
+# theme = Catppuccin Mocha
 # theme = CGA
 # theme = Dark+
-# theme = darkmatrix
+# theme = Darkmatrix
 # theme = Dimidium
-# theme = deep
-# theme = FirefoxDev
+# theme = Deep
+# theme = Firefox Dev
 # theme = Framer
 # theme = GitHub Dark
-# theme = GitHub-Dark-Default
+# theme = GitHub Dark Default
 # theme = Hardcore
 # theme = Harper
-# theme = iceberg-dark
+# theme = Iceberg Dark
 # theme = iTerm2 Dark Background
 # theme = Konsolas
 # theme = Mathias
-# theme = matrix
+# theme = Matrix
 # theme = Monokai Remastered
 # theme = Monokai Soda
 # theme = N0tch2k
 # theme = Oxocarbon
-# theme = Raycast_Dark
-theme = rose-pine
+# theme = Raycast Dark
+# theme = Rose Pine
 # theme = Shaman
 # theme = Wryan
+theme = phantom-shadow.conf
 
 font-family = "Cascadia Mono"
-font-size = 16
+font-size = 20
 
 mouse-hide-while-typing = true
 cursor-style = block
@@ -40,3 +41,7 @@ window-decoration = false
 window-padding-x = 8
 window-padding-y = 8
 window-padding-balance = true
+
+# background
+background-opacity = 0.60
+background-blur = 0

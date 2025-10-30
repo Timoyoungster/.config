@@ -1,0 +1,14 @@
+[general]
+targets = todoist
+annotation_comments = true
+
+[todoist]
+service = todoist
+todoist.token = @oracle:eval:op read op://Personal/fnpdab3hs33wcbalnaxim6glje/password
+# optional
+todoist.filter = ( #Education* | #Inbox )
+todoist.import_labels_as_tags = true
+todoist.description_template = {{ todoistcontent }}
+todoist.project_template = {{project|lower}}
+todoist.due_template = {{ todoistdeadline if todoistdeadline else todoistdue if todoistdue else "" }}
+todoist.scheduled_template = {{ todoistdue if todoistdeadline else "" }}

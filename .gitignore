@@ -33,6 +33,12 @@
 !task/*
 !/vim
 !vim/*
+!user-dirs.dirs
+!user-dirs.locale
+!/radian
+!radian/*
+!/bugwarrior
+!bugwarrior/*
 
 # special handling for nchat
 !/nchat
