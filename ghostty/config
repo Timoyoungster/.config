@@ -45,3 +45,6 @@ window-padding-balance = true
 # background
 background-opacity = 0.60
 background-blur = 0
+
+# auto start tmux
+command = ~/.config/ghostty/tmux-ghostty
