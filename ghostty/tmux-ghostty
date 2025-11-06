@@ -8,9 +8,10 @@ for i in {$SESSION_RANGE}; do
   tmux has-session -t $SESSION_NAME$i 2>/dev/null
   if [ $? -eq 0 ]; then
     tmux list-clients -t $SESSION_NAME$i | grep -q attached
-    if [ $? -eq 0]; then
-      # session exists => attach
+    if [ $? -eq 1 ]; then
+      # session exists and none connected => attach
       tmux attach-session -t $SESSION_NAME$i
+      break
     fi
   else
     # session doesn't exist => create
