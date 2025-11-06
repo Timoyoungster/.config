@@ -1,0 +1,12 @@
+#!/bin/env zsh
+
+source ~/.config/zsh/searchpaths
+
+setopt localoptions pipefail no_aliases 2> /dev/null
+f=$( find $SEARCHPATHS -mindepth 0 -maxdepth 2 -type d | fzf --bind "ctrl-y:accept" )
+if [ -z $f ]; then; else
+  cd $f
+fi
+# zle reset-prompt
+
+# vim:ts=2 sw=2 et:
