@@ -7,30 +7,11 @@ export SEARCHPATHS=( ~ ~/github ~/.config/* ~/downloads ~/work )
 #####################################################
 
 tmux-sessionizer() {
-  # restore fd's
   exec </dev/tty
   exec <&1
 
-  if [[ $# -eq 1 ]]; then
-    selected=$1
-  else
-    selected=$((find $SEARCHPATHS -mindepth 0 -maxdepth 2 -type d && ( tmux ls | cut -d : -f 1 ) ) | fzf --bind "ctrl-y:accept")
-  fi
+  source ~/.config/zsh/sessionizer
 
-  if [[ -z $selected ]]; then
-    zle reset-prompt
-    return 0
-  fi
-
-  selected_name=$(basename "$selected" | tr -d . | head -c 8)
-  tmux_running=$(pgrep tmux)
-
-  if [[ -z $TMUX ]]; then
-    tmux new -As $selected_name -c $selected
-  else
-    tmux new -ds $selected_name -c $selected 2> /dev/null
-    tmux switch-client -t $selected_name
-  fi
   zle reset-prompt
 }
 
@@ -44,11 +25,7 @@ bindkey -M viins '^T' tmux-sessionizer
 #######################################
 
 fzf-file-widget() {
-  setopt localoptions pipefail no_aliases 2> /dev/null
-  f=$(find $SEARCHPATHS -mindepth 0 -maxdepth 2 -type d | fzf --bind "ctrl-y:accept")
-  if [ -z $f ]; then; else
-    cd $f
-  fi
+  source ~/.config/zsh/cdonizer
   zle reset-prompt
 }
 
@@ -58,30 +35,10 @@ bindkey -M vicmd '^S' fzf-file-widget
 bindkey -M viins '^S' fzf-file-widget
 
 fzf-history-widget() {
-  setopt extendedglob
+  source ~/.config/zsh/histonizer
 
-  FC_ARGS="-l -n"
-  CANDIDATE_LEADING_FIELDS=1
-
-  history_cmd="fc ${=FC_ARGS} -1 0 | awk '!seen[\$0]++'"
-
-  if (( $#BUFFER )); then
-    candidates=(${(f)"$(eval $history_cmd | fzf --bind 'ctrl-y:accept' ${=ZSH_FZF_HISTORY_SEARCH_FZF_ARGS} ${=ZSH_FZF_HISTORY_SEARCH_FZF_EXTRA_ARGS} -q "${=ZSH_FZF_HISTORY_SEARCH_FZF_QUERY_PREFIX}$BUFFER")"})
-  else
-    candidates=(${(f)"$(eval $history_cmd | fzf --bind 'ctrl-y:accept' ${=ZSH_FZF_HISTORY_SEARCH_FZF_ARGS} ${=ZSH_FZF_HISTORY_SEARCH_FZF_EXTRA_ARGS})"})
-  fi
-
-  if [ -n "$candidates" ]; then
-    if (( ! $CANDIDATE_LEADING_FIELDS == 1 )); then
-      BUFFER="${candidates[@]/(#m)[0-9 \-\:]##/$(
-      printf '%s' "${${(As: :)MATCH}[${CANDIDATE_LEADING_FIELDS},-1]}" | sed 's/%/%%/g'
-      )}"
-    else
-      BUFFER="${(j| && |)candidates}"
-    fi
-    zle vi-fetch-history -n $BUFFER
-    zle end-of-line
-  fi
+  zle vi-fetch-history -n $BUFFER
+  zle end-of-line
   zle reset-prompt
 }
 
@@ -99,3 +56,5 @@ zle     -N            run-fg
 bindkey -M emacs '^Z' run-fg
 bindkey -M vicmd '^Z' run-fg
 bindkey -M viins '^Z' run-fg
+
+# vim:ts=2 sw=2 et:

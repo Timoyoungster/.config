@@ -1,0 +1,25 @@
+#!/bin/env zsh
+
+source ~/.config/zsh/searchpaths
+
+if [[ $# -eq 1 ]]; then
+  selected=$1
+else
+  selected=$( ( find $SEARCHPATHS -mindepth 0 -maxdepth 2 -type d && ( tmux ls | cut -d : -f 1 ) ) | fzf --bind "ctrl-y:accept")
+fi
+
+if [[ -z $selected ]]; then
+  return 0
+fi
+
+selected_name=$(basename "$selected" | tr -d . | head -c 8)
+tmux_running=$(pgrep tmux)
+
+if [[ -z $TMUX ]]; then
+  tmux new -As $selected_name -c $selected
+else
+  tmux new -ds $selected_name -c $selected 2> /dev/null
+  tmux switch-client -t $selected_name
+fi
+
+# vim:ts=2 sw=2 et:

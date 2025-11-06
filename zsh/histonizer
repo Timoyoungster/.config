@@ -1,0 +1,26 @@
+#!/bin/env zsh
+
+setopt extendedglob
+
+FC_ARGS="-l -n"
+CANDIDATE_LEADING_FIELDS=1
+
+history_cmd="fc ${=FC_ARGS} -1 0 | awk '!seen[\$0]++'"
+
+if (( $#BUFFER )); then
+  candidates=(${(f)"$(eval $history_cmd | fzf --bind 'ctrl-y:accept' ${=ZSH_FZF_HISTORY_SEARCH_FZF_ARGS} ${=ZSH_FZF_HISTORY_SEARCH_FZF_EXTRA_ARGS} -q "${=ZSH_FZF_HISTORY_SEARCH_FZF_QUERY_PREFIX}$BUFFER")"})
+else
+  candidates=(${(f)"$(eval $history_cmd | fzf --bind 'ctrl-y:accept' ${=ZSH_FZF_HISTORY_SEARCH_FZF_ARGS} ${=ZSH_FZF_HISTORY_SEARCH_FZF_EXTRA_ARGS})"})
+fi
+
+if [ -n "$candidates" ]; then
+  if (( ! $CANDIDATE_LEADING_FIELDS == 1 )); then
+    export BUFFER="${candidates[@]/(#m)[0-9 \-\:]##/$(
+    printf '%s' "${${(As: :)MATCH}[${CANDIDATE_LEADING_FIELDS},-1]}" | sed 's/%/%%/g'
+    )}"
+  else
+    export BUFFER="${(j| && |)candidates}"
+  fi
+fi
+
+# vim:ts=2 sw=2 et:
