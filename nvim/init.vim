@@ -2,7 +2,7 @@ syntax on
 
 set notermguicolors
 set laststatus=0
-silent! colorscheme vim
+silent! colorscheme phantom-shadow
 
 set ignorecase
 set wildignorecase
@@ -21,3 +21,4 @@ let maplocalleader = " "
 if has('nvim')
 	source ~/.config/nvim/plugins.lua
 endif
+
