@@ -29,10 +29,14 @@
 !yay/*
 !/nvim
 !nvim/*
+!nvim/colors
+!nvim/colors/*
 !/task
 !task/*
 !/vim
 !vim/*
+!vim/colors
+!vim/colors/*
 !user-dirs.dirs
 !user-dirs.locale
 !/radian
