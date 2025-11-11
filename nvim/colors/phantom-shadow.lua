@@ -41,6 +41,7 @@ H("Constant",   { ctermfg = colors.magenta })
 H("Function",   { ctermfg = colors.cyan })
 H("Special",    { ctermfg = colors.blue })
 H("Comment",    { ctermfg = colors.yellow, italic = true})
+H("Delimiter",  { ctermfg = colors.bright_black })
 H("Search",     { ctermfg = colors.black, ctermbg = colors.bright_magenta })
 
 H("Underlined", { underline = true })
@@ -157,14 +158,19 @@ H("@variable",     { link = 'Normal' })
 H("Identifier",    { link = 'Normal' })
 H("@diff",         { link = 'Normal' })
 H("@lsp",          { link = 'Normal' })
-H("Delimiter",     { link = 'Normal' })
 H("Type",          { link = 'Normal' })
 H("Operator",      { link = 'Normal' })
 H("Method",        { link = 'Normal' })
 H("Struct",        { link = 'Normal' })
+H("@type.builtin", { link = 'Normal' })
+H("@function.call",{ link = 'Normal' })
 
 -- Special Links
 H("PreProc",       { link = 'Special' })
+H("@definition.var", { link = 'Special' })
+
+-- Constant Links
+H("@constant.builtin", { link = 'Constant' })
 
 -- Title Links
 H("WinBar",        { link = 'Title' })
