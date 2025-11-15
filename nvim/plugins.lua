@@ -130,5 +130,13 @@ end
 
 vim.keymap.set('n', '<leader>t', ShowTSHighlight, { desc = "Show Treesitter highlight under cursor" })
 
+-- ipython send
+vim.keymap.set("n", "<leader>jr", function()
+  require("ipython_send").send_current_cell()
+end, { desc = "Send IPython cell to tmux" })
+
+vim.keymap.set("n", "<leader>ja", function()
+  require("ipython_send").send_all_cells_up_to_current()
+end, { desc = "Send all cells up to current to IPython" })
 
 -- vim:ts=2 sw=2 et:

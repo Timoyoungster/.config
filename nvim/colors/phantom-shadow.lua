@@ -163,6 +163,7 @@ H("Operator",             { link = 'Normal' })
 H("Method",               { link = 'Normal' })
 H("Struct",               { link = 'Normal' })
 H("@type.builtin",        { link = 'Normal' })
+H("@function.builtin",    { link = 'Normal' })
 H("@function.call",       { link = 'Normal' })
 H("@function.method.call",{ link = 'Normal' })
 
