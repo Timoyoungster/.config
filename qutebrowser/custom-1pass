@@ -1,0 +1,141 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+URL="$QUTE_URL"
+PICKER="rofi"
+
+double_tlds=("co.uk" "com.au" "gov.au" "org.uk" "net.au")
+
+host=$(echo "$URL" | sed -E 's|^https?://([^/:]+).*|\1|')
+
+root_domain=""
+for suffix in "${double_tlds[@]}"; do
+  if [[ "$host" =~ \.${suffix}$ ]]; then
+    prefix=${host%.$suffix}
+    last_label=${prefix##*.}
+    root_domain="$last_label.$suffix"
+    break
+  fi
+done
+
+if [ -z "$root_domain" ]; then
+  # Fallback: last two labels
+  root_domain=${host##*.}
+  domain_without_last=${host%.*}
+  second_last_label=${domain_without_last##*.}
+  root_domain="$second_last_label.$root_domain"
+fi
+
+domain_regex=$(echo "$root_domain" | sed 's/\./\\./g')
+
+REGEX="^(https://)?([^.]+\.)*?$domain_regex(:[0-9]+)?"
+
+###############################################################################
+# Get items from all accounts
+###############################################################################
+ACCOUNTS=($(op account list --format=json | jq -r '.[].account_uuid'))
+
+if [ ${#ACCOUNTS[@]} -eq 0 ]; then
+    echo "message-error 'No 1Password accounts logged in.'" >> "$QUTE_FIFO"
+    exit 1
+fi
+
+###############################################################################
+# Collect matching items
+###############################################################################
+MATCHING=$(
+jq_filter='[.[] | select(any(.urls[]?.href; test($R))) | .acc_id=$ACC]'
+for acc in "${ACCOUNTS[@]}"; do
+    OP_ACCOUNT="$acc" REGEX="$REGEX" op item list --format=json --include-archive=false \
+        | jq --arg R "$REGEX" --arg ACC "$acc" "$jq_filter"
+done | jq -s 'add'
+)
+
+COUNT=$(jq 'length' <<< "$MATCHING")
+
+if [ "$COUNT" -eq 0 ]; then
+    echo "message-error 'No 1Password entry found for domain'" >> "$QUTE_FIFO"
+    exit 0
+fi
+
+###############################################################################
+# Picker
+###############################################################################
+if [ "$COUNT" -gt 1 ]; then
+    LIST=$(jq -r '.[] | "\(.id)\t\(.title)\t\(.acc_id)"' <<<"$MATCHING")
+    if [ "$PICKER" = "fzf" ] && command -v fzf >/dev/null; then
+        SELECTED=$(printf "%s\n" "$LIST" | fzf)
+    else
+        SELECTED=$(printf "%s\n" "$LIST" | rofi -dmenu -p "Select login:")
+    fi
+
+    # Split the selected line into variables
+    ID=$(awk -F '\t' '{print $1}' <<<"$SELECTED")
+    TITLE=$(awk -F '\t' '{print $2}' <<<"$SELECTED")
+    ACC_ID=$(awk -F '\t' '{print $3}' <<<"$SELECTED")  # optional, if you want the third field too
+else
+    ID=$(jq -r '.[0].id' <<<"$MATCHING")
+    TITLE=$(jq -r '.[0].title' <<<"$MATCHING")
+    ACC_ID=$(jq -r '.[0].acc_id' <<<"$MATCHING")
+fi
+
+
+###############################################################################
+# Retrieve item
+###############################################################################
+ITEM_JSON=$(OP_ACCOUNT=$ACC_ID op item get "$ID" --format=json)
+
+get_field() {
+    jq -r --arg f "$1" '
+        .fields[]? | select(.id==$f or .label==$f) | .value // empty
+    ' <<<"$ITEM_JSON"
+}
+
+get_totp() {
+    jq '
+        .fields[]? | select(.type=="OTP") | .totp // empty | tonumber
+    ' <<<"$ITEM_JSON"
+}
+
+USERNAME=$(get_field username)
+PASSWORD=$(get_field password)
+TOTP=$(get_totp || true)
+
+###############################################################################
+# JS Escaping
+###############################################################################
+jq_str() { jq -Rsa . <<<"$1"; }
+
+U=$(jq_str "$USERNAME")
+P=$(jq_str "$PASSWORD")
+T=$(jq_str "$TOTP")
+
+###############################################################################
+# Build + run JS
+###############################################################################
+JS=$(cat <<EOF
+(function() {
+function setField(el, value) {
+    if (!el || !value) return;
+    el.focus(); el.value = value;
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+    el.dispatchEvent(new Event('change', { bubbles: true }));
+}
+const qs = s => document.querySelector(s);
+setField(qs('input[name*=user i],input[name*=login i],input[name*=email i],input[type=email],input[type=text]'), $U);
+setField(qs('input[type=password]'), $P);
+setField(qs('input[name*=otp i],input[name*=2fa i],input[name*=code i],input[type=number]'), $T);
+})();
+EOF
+)
+
+echo "jseval -q $(tr '\n' ' ' <<<"$JS")" >> "$QUTE_FIFO"
+
+###############################################################################
+# Copy TOTP
+###############################################################################
+if [ -n "$TOTP" ]; then
+    printf '%s' "$TOTP" | wl-copy
+    echo "message-info 'TOTP copied to clipboard'" >> "$QUTE_FIFO"
+fi
+
