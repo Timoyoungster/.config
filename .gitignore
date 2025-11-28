@@ -63,6 +63,11 @@
 !/mutt/muttrc
 !mutt/
 
+# special handling for qutebrowser
+!qutebrowser/
+!/qutebrowser/config.py
+!/qutebrowser/custom-1pass
+
 # never show the ssh stuff
 /zsh/ssh-stuff
 
