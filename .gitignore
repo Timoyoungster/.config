@@ -68,6 +68,9 @@
 !/qutebrowser/config.py
 !/qutebrowser/custom-1pass
 
+# save install script
+!essentials.sh
+
 # never show the ssh stuff
 /zsh/ssh-stuff
 
