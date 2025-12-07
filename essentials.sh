@@ -82,6 +82,7 @@ essential_packages=(
 	qpwgraph
 	unzip
 	# ripgrep [aur]
+	# pcloudcc-lneely [aur]
 	
 	# - dev utils
 	# volta [aur]
