@@ -35,6 +35,7 @@ essential_packages=(
 	# - browser
 	qutebrowser
 	rofi # for password selection
+	# chromium-widevine [aur] # for netflix
 
 	# - wayland
 	hyprland
