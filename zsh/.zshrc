@@ -101,7 +101,7 @@ alias zshconfig="nvim ~/.zshrc"
 alias nvimconfig="cd ~/.config/nvim"
 alias dotfiles="cd ~/.config"
 alias res="fg"
-alias hl='Hyprland'
+alias hl='start-hyprland '
 alias imgcat='img2sixel' // better: viu
 alias clock='tclock' # cargo install clock-tui
 alias weather='curl wttr.in/48.11,14.19'
@@ -131,6 +131,7 @@ alias tts='piper-tts --model "/usr/share/piper-voices/en/en_US/ryan/high/en_US-r
 alias xopen='xdg-open '
 alias cal='cal -m '
 alias tsenable='source /usr/share/nvm/init-nvm.sh '
+alias pydoc='python -m pydoc '
 
 eval $(thefuck --alias)
 
