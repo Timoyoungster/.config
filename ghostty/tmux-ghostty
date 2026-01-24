@@ -1,4 +1,4 @@
-#!/bin/env zsh
+#!/bin/zsh
 
 SESSION_NAME="ghsty"
 SESSION_RANGE=0..9

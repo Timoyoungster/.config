@@ -82,28 +82,28 @@ export INFOPATH=$INFOPATH:/usr/local/texlive/2025/texmf-dist/doc/info
 ###########
 
 alias sudo='sudo ' # make aliases work with sudo http://www.linuxcommand.org/lc3_man_pages/aliash.html
-alias ll="ls -a -h -l --color=always -v --group-directories-first"
-alias lx="ls -a -h --color=always -v --group-directories-first"
-alias lxs="ls -a -h -l --color=always --group-directories-first -v | less -R"
-alias gs="git status"
-alias gd="git diff"
-alias ga="git add"
-alias gc="git commit"
-alias gco="git checkout"
-alias gb="git branch -a"
-alias gp="git push"
-alias gpull="git pull"
+alias ll="ls -a -h -l --color=always -v "
+alias lx="ls -a -h --color=always -v "
+alias lxs="ls -a -h -l --color=always  -v | less -R "
+alias gs="git status "
+alias gd="git diff "
+alias ga="git add "
+alias gc="git commit "
+alias gco="git checkout "
+alias gb="git branch -a "
+alias gp="git push "
+alias gpull="git pull "
 alias gwt="git worktree "
 alias gwta="git worktree add "
 alias gwtr="git worktree remove "
-alias gor="go run ."
-alias zshconfig="nvim ~/.zshrc"
-alias nvimconfig="cd ~/.config/nvim"
-alias dotfiles="cd ~/.config"
-alias res="fg"
-alias hl='Hyprland'
-alias imgcat='img2sixel' // better: viu
-alias clock='tclock' # cargo install clock-tui
+alias gor="go run . "
+alias zshconfig="nvim ~/.zshrc "
+alias nvimconfig="cd ~/.config/nvim "
+alias dotfiles="cd ~/.config "
+alias res="fg "
+alias hl='Hyprland '
+alias imgcat='img2sixel ' // better: viu
+alias clock='tclock ' # cargo install clock-tui
 alias weather='curl wttr.in/48.11,14.19'
 alias hextobin='python3 ~/.config/scripts/hex_to_bin.py $@'
 alias wm='w3m -v www.duckduckgo.com'
