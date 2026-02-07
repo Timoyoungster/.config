@@ -45,6 +45,13 @@ add({
   depends = { 'nvim-lua/plenary.nvim' },
 })
 
+-- git
+add({
+  source = 'tpope/vim-fugitive',
+  checkout = 'master',
+  monitor = 'master',
+})
+
 -------------
 -- CONFIGS --
 -------------
