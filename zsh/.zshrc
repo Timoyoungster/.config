@@ -32,7 +32,7 @@ setopt no_list_ambiguous
 stty -ixon
 
 # nvim editor but no zsh-vi mode
-export VISUAL=nvim
+export VISUAL=vim
 export EDITOR=$VISUAL
 bindkey -e
 
