@@ -1,7 +1,6 @@
 # load autoconfig first to override everything else later
 config.load_autoconfig()
 
-
 # ----------------
 # --- Keybinds ---
 # ----------------

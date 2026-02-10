@@ -83,6 +83,7 @@ essential_packages=(
 	qpwgraph
 	unzip
 	# ripgrep [aur]
+	wavemon
 	
 	# - dev utils
 	# volta [aur]
