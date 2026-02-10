@@ -45,6 +45,8 @@
 !radian/*
 !/bugwarrior
 !bugwarrior/*
+!/discord
+!discord/settings.json
 
 # special handling for nchat
 !/nchat
