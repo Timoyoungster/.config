@@ -57,6 +57,7 @@ essential_packages=(
 	hyprpaper
 	hyprlock
 	hyprcursor
+	hyprshot
 	mako
 	tofi # [aur]
 
