@@ -1,6 +1,16 @@
 #!/bin/env zsh
 
-# TODO: finish the install script
+useradd -m -G adm,ftp,games,http,log,rfkill,sys,systemd-journal,uucp,wheel -s /bin/zsh timo
+
+if [[ -d ~/github/yay ]]; then
+	echo "yay already installed"
+else
+	echo "installing yay"
+	mkdir ~/github
+	git clone https://aur.archlinux.org/yay.git ~/github/yay
+	cd ~/github/yay
+	makepkg -si
+fi
 
 essential_packages=(
 
@@ -11,10 +21,9 @@ essential_packages=(
 	efibootmgr
 	zsh
 
-	# - firmware
+	# - firmware [select one]
 	# amd-ucode
 	# intel-ucode
-	#
 	# nvidia
 	# nvidia-utils
 	
@@ -49,12 +58,12 @@ essential_packages=(
 	hyprlock
 	hyprcursor
 	mako
-	# tofi [aur]
+	tofi # [aur]
 
 	# - text processing
 	neovim
 	jq
-	# q [aur]
+	q # [aur]
 
 	# - image processing
 	# infinipaint [flatpak]
@@ -81,15 +90,18 @@ essential_packages=(
 	pdftk
 	qpwgraph
 	unzip
-	# ripgrep [aur]
-	# pcloudcc-lneely [aur]
+	ripgrep # [aur]
+	pcloudcc-lneely # [aur]
+	ttf-cascadia-code
 	
 	# - dev utils
-	# volta [aur]
+	volta # [aur]
 
 	# - games
 	bsd-games
 )
+
+yay -S --needed --noconfirm "${essential_packages[@]}"
 
 # - networking
 # sudo systemctl enable NetworkManager

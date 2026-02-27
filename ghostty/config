@@ -28,7 +28,7 @@
 # theme = Wryan
 theme = phantom-shadow.conf
 
-font-family = "Cascadia Mono"
+font-family = "CascadiaMono"
 font-size = 20
 
 mouse-hide-while-typing = true
