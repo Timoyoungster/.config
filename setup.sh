@@ -2,6 +2,7 @@
 
 ln -s ~/.config/zsh/.zshrc ~/.zshrc
 ln -s ~/.config/task/taskrc ~/.taskrc
+ln -s ~/.config/scripts/batcheck /usr/local/bin/batcheck
 
 mkdir -p ~/.local/share/qutebrowser/userscripts
 ln -s ~/.config/qutebrowser/custom-1pass ~/.local/share/qutebrowser/userscripts/custom-1pass

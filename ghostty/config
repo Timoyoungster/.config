@@ -28,7 +28,7 @@
 # theme = Wryan
 theme = phantom-shadow.conf
 
-font-family = "CaskaydiaMono NF"
+font-family = "Cascadia Mono"
 font-size = 20
 
 mouse-hide-while-typing = true
@@ -50,5 +50,5 @@ background-blur = 0
 command = ~/.config/ghostty/tmux-ghostty
 
 # don't quit
-# => systemctl enable --user app-com.mitchellh.ghostty.service
+# => systemct enable --user app-com.mitchellh.ghostty.service
 quit-after-last-window-closed = false
