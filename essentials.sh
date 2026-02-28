@@ -82,6 +82,7 @@ essential_packages=(
 
 	# - document processing
 	zathura
+	zathura-pdf-mupdf
 
 	# - utils
 	btop
