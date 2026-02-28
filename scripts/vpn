@@ -7,7 +7,7 @@ then
 	cato-sdp start
 fi
 
-if [[ "$1" == "logount" ]]
+if [[ "$1" == "logout" ]]
 then
 	cato-sdp stop
 	sleep 1
