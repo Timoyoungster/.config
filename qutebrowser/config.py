@@ -1,6 +1,11 @@
 # load autoconfig first to override everything else later
 config.load_autoconfig()
 
+# darkmode
+c.colors.webpage.darkmode.enabled = True
+
+# fix flashbang
+c.colors.webpage.bg = 'black'
 
 # ----------------
 # --- Keybinds ---
