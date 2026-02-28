@@ -49,6 +49,6 @@ background-blur = 0
 # auto start tmux
 command = ~/.config/ghostty/tmux-ghostty
 
-# don't quit
+# don't do that stuff, bad idea
 # => systemct enable --user app-com.mitchellh.ghostty.service
-quit-after-last-window-closed = false
+# quit-after-last-window-closed = false
