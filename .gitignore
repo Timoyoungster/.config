@@ -71,6 +71,8 @@
 # save install script
 !essentials.sh
 
+!electron-flags.conf
+
 # never show the ssh stuff
 /zsh/ssh-stuff
 
