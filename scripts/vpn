@@ -1,0 +1,15 @@
+#!/bin/zsh
+
+if [[ "$1" == "login" ]]
+then
+	sudo systemctl start cato-client
+	sleep 1
+	cato-sdp start
+fi
+
+if [[ "$1" == "logount" ]]
+then
+	cato-sdp stop
+	sleep 1
+	sudo systemctl stop cato-client
+fi

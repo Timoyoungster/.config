@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+MSP=$(op read "op://Private/sgic252a4nhyihwbx76ms3w5vq/password")
+sdl-freerdp3 /v:192.168.98.62 /u:Timo /p:$MSP /dynamic-resolution /sound /microphone +clipboard +aero -decorations
