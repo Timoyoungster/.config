@@ -18,6 +18,8 @@ nnoremap <Space> <Nop>
 let mapleader = " "
 let maplocalleader = " "
 
+nnoremap <leader>cd :Ex<cr>
+
 if has('nvim')
 	source ~/.config/nvim/plugins.lua
 endif
