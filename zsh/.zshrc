@@ -96,6 +96,8 @@ alias gpull="git pull"
 alias gwt="git worktree "
 alias gwta="git worktree add "
 alias gwtr="git worktree remove "
+# Git completion for aliases
+zstyle ':completion:*:*:git:*' alias-expressions 'w=checkout'
 alias gor="go run ."
 alias zshconfig="nvim ~/.zshrc"
 alias nvimconfig="cd ~/.config/nvim"

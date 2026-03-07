@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 ln -s ~/.config/zsh/.zshrc ~/.zshrc
+ln -s ~/.config/.gitconfig ~/.gitconfig
 ln -s ~/.config/task/taskrc ~/.taskrc
 ln -s ~/.config/scripts/batcheck /usr/local/bin/batcheck
 ln -s ~/.config/scripts/vpn /usr/local/bin/vpn
