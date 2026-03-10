@@ -3,7 +3,7 @@
 ###########
 
 export WWW_HOME=www.duckduckgo.com
-export SEMESTER=v
+export SEMESTER=vi
 
 ##############
 # Completion #
