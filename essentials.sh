@@ -40,6 +40,7 @@ essential_packages=(
 	networkmanager
 	openssh
 	ufw
+	mtr
 
 	# - browser
 	qutebrowser
