@@ -91,6 +91,7 @@ essential_packages=(
 	fzf
 	gdb
 	pdftk
+	csvlens
 	qpwgraph
 	unzip
 	ripgrep # [aur]
