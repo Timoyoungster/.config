@@ -50,6 +50,7 @@ essential_packages=(
 	hyprland
 	polkit
 	hyprpolkitagent
+	hyprshutdown # graceful shutdown
 	egl-wayland
 	wl-clipboard
 	xdg-desktop-portal-hyprland
