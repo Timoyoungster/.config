@@ -43,7 +43,7 @@ window-padding-y = 8
 window-padding-balance = true
 
 # background
-background-opacity = 0.60
+background-opacity = 0.9 
 background-blur = 0
 
 # auto start tmux
