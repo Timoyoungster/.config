@@ -104,6 +104,9 @@ essential_packages=(
 
 	# - games
 	bsd-games
+	steam
+	gamemoderun
+	mangohud
 )
 
 yay -S --needed --noconfirm "${essential_packages[@]}"
