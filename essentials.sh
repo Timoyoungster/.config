@@ -85,6 +85,7 @@ essential_packages=(
 	# - document processing
 	zathura
 	zathura-pdf-mupdf
+	quarto-cli-bin # [aur]
 
 	# - utils
 	btop
