@@ -2,6 +2,11 @@
 !/.gitignore
 !/.gitconfig
 !setup.sh
+!essentials.sh
+!user-dirs.dirs
+!user-dirs.locale
+!mimeapps.list
+
 !/hypr
 !hypr/*
 !/foot
@@ -40,12 +45,12 @@
 !vim/*
 !vim/colors
 !vim/colors/*
-!user-dirs.dirs
-!user-dirs.locale
 !/radian
 !radian/*
 !/bugwarrior
 !bugwarrior/*
+!/applications
+!applications/*
 
 # special handling for nchat
 !/nchat
@@ -60,7 +65,7 @@
 !/w3m/cgi-bin
 !w3m/cgi-bin/*
 
-# special handling for w3m
+# special handling for mutt
 !/mutt/muttrc
 !mutt/
 
@@ -68,9 +73,6 @@
 !qutebrowser/
 !/qutebrowser/config.py
 !/qutebrowser/custom-1pass
-
-# save install script
-!essentials.sh
 
 !electron-flags.conf
 

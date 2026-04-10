@@ -6,6 +6,9 @@ ln -s ~/.config/task/taskrc ~/.taskrc
 ln -s ~/.config/scripts/batcheck /usr/local/bin/batcheck
 ln -s ~/.config/scripts/vpn /usr/local/bin/vpn
 ln -s ~/.config/scripts/work /usr/local/bin/work
+ln -s ~/.config/gdb/.gdbinit ~/.gdbinit
+ln -s ~/.config/mimeapps.list ~/.local/share/applications/mimeapps.list
+ln -s ~/.config/applications ~/.local/share/applications
 
 mkdir -p ~/.local/share/qutebrowser/userscripts
 ln -s ~/.config/qutebrowser/custom-1pass ~/.local/share/qutebrowser/userscripts/custom-1pass

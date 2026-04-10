@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=BPM
+Comment=Play this game on Steam
+Exec=steam steam://rungameid/1286350
+Icon=steam_icon_1286350
+Terminal=false
+Type=Application
+Categories=Game;

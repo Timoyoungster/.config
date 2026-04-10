@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Zathura
+Name[en_US]=zathura
+GenericName=PDF viewer
+GenericName[en_US]=PDF viewer
+Comment=PDF viewer
+Exec=zathura
+Terminal=false
+Type=Application
+Icon=zathura
+MimeType=application/pdf
+NoDisplay=true
+
