@@ -65,9 +65,12 @@
 !/w3m/cgi-bin
 !w3m/cgi-bin/*
 
-# special handling for mutt
+# special handling for mutt / aerc
 !/mutt/muttrc
 !mutt/
+!aerc/
+!/aerc/aerc.conf
+!/aerc/binds.conf
 
 # special handling for qutebrowser
 !qutebrowser/
