@@ -9,5 +9,3 @@ Terminal=false
 Type=Application
 Icon=zathura
 MimeType=application/pdf
-NoDisplay=true
-
