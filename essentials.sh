@@ -102,6 +102,7 @@ essential_packages=(
 	
 	# - dev utils
 	volta # [aur]
+	hyperfine
 
 	# - games
 	bsd-games
