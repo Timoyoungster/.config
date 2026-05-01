@@ -1,0 +1,17 @@
+[MIME Cache]
+application/pdf=zathura.desktop;
+application/vnd.duckdb=beekeeper-studio.desktop;
+application/vnd.sqlite3=beekeeper-studio.desktop;
+x-scheme-handler/cockroach=beekeeper-studio.desktop;
+x-scheme-handler/cockroachdb=beekeeper-studio.desktop;
+x-scheme-handler/mariadb=beekeeper-studio.desktop;
+x-scheme-handler/microsoftsqlserver=beekeeper-studio.desktop;
+x-scheme-handler/mssql=beekeeper-studio.desktop;
+x-scheme-handler/mysql=beekeeper-studio.desktop;
+x-scheme-handler/postgres=beekeeper-studio.desktop;
+x-scheme-handler/postgresql=beekeeper-studio.desktop;
+x-scheme-handler/psql=beekeeper-studio.desktop;
+x-scheme-handler/redshift=beekeeper-studio.desktop;
+x-scheme-handler/sqlite=beekeeper-studio.desktop;
+x-scheme-handler/sqlserver=beekeeper-studio.desktop;
+x-scheme-handler/tidb=beekeeper-studio.desktop;
