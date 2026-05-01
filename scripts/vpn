@@ -1,15 +1,10 @@
 #!/bin/zsh
 
-if [[ "$1" == "login" ]]
-then
-	sudo systemctl start cato-client
-	sleep 1
-	cato-sdp start
-fi
+VPN_USER="op://Private/sgic242a4nhyihwbx76ms3w5vq/username"
+VPN_PASS="op://Private/sgic242a4nhyihwbx76ms3w5vq/password"
+VPN_MFA="op://Private/sgic242a4nhyihwbx76ms3w5vq/one-time password?attribute=otp"
+VPN_URL="op://Private/sgic242a4nhyihwbx76ms3w5vq/url"
+VPN_METHOD="op://Private/sgic242a4nhyihwbx76ms3w5vq/method"
 
-if [[ "$1" == "logout" ]]
-then
-	cato-sdp stop
-	sleep 1
-	sudo systemctl stop cato-client
-fi
+echo Connecting to Tunnel ...
+sudo snx-rs -o $(op read $VPN_METHOD) -s $(op read $VPN_URL) -X true -u $(op read $VPN_USER) -p $(op read $VPN_PASS) -F $(op read $VPN_MFA)
