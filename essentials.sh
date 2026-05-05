@@ -104,6 +104,7 @@ essential_packages=(
 	pcloudcc-lneely # [aur]
 	ttf-cascadia-code
 	1password # [aur]
+	1password-cli # [aur]
 	
 	# - dev utils
 	volta # [aur]
