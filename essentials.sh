@@ -41,9 +41,12 @@ essential_packages=(
 	openssh
 	ufw
 	mtr
+	bluez
+	bluez-utils
 
 	# - browser
 	qutebrowser
+	firefox
 	rofi # for password selection
 
 	# - wayland
@@ -65,6 +68,7 @@ essential_packages=(
 
 	# - text processing
 	neovim
+	tree-sitter-cli
 	jq
 	q # [aur]
 
@@ -99,10 +103,17 @@ essential_packages=(
 	ripgrep # [aur]
 	pcloudcc-lneely # [aur]
 	ttf-cascadia-code
+	1password # [aur]
 	
 	# - dev utils
 	volta # [aur]
 	hyperfine
+	ghostty
+
+	# - social
+	nchat # [aur]
+	discord # [aur]
+	aerc
 
 	# - games
 	bsd-games
@@ -114,9 +125,10 @@ essential_packages=(
 yay -S --needed --noconfirm "${essential_packages[@]}"
 
 # - networking
-# sudo systemctl enable NetworkManager
-# sudo systemctl enable systemd-resolved
-# sudo systemctl enable ufw
+# sudo systemctl enable NetworkManager # assumed to have been from the live env already
+sudo systemctl enable systemd-resolved
+sudo systemctl enable bluetooth
+sudo systemctl enable ufw
 
 # - flatpak
-# flatpak install com.infinipaint.infinipaint
+flatpak install com.infinipaint.infinipaint
