@@ -1,21 +1,27 @@
 #!/bin/zsh
 
-ln -s ~/.config/zsh/.zshrc ~/.zshrc
-ln -s ~/.config/.gitconfig ~/.gitconfig
-ln -s ~/.config/task/taskrc ~/.taskrc
-ln -s ~/.config/scripts/batcheck /usr/local/bin/batcheck
-ln -s ~/.config/scripts/vpn /usr/local/bin/vpn
-ln -s ~/.config/scripts/work /usr/local/bin/work
-ln -s ~/.config/gdb/.gdbinit ~/.gdbinit
-ln -s ~/.config/mimeapps.list ~/.local/share/applications/mimeapps.list
-ln -s ~/.config/applications ~/.local/share/applications
+if [[ -z $SUDO_HOME ]]; then
+	USER_HOME=$HOME
+else
+	USER_HOME=$SUDO_HOME
+fi
 
-mkdir -p ~/.local/share/qutebrowser/userscripts
-ln -s ~/.config/qutebrowser/custom-1pass ~/.local/share/qutebrowser/userscripts/custom-1pass
+ln -s $USER_HOME/.config/zsh/.zshrc $USER_HOME/.zshrc
+ln -s $USER_HOME/.config/.gitconfig $USER_HOME/.gitconfig
+ln -s $USER_HOME/.config/task/taskrc $USER_HOME/.taskrc
+ln -s $USER_HOME/.config/scripts/batcheck /usr/local/bin/batcheck
+ln -s $USER_HOME/.config/scripts/vpn /usr/local/bin/vpn
+ln -s $USER_HOME/.config/scripts/work /usr/local/bin/work
+ln -s $USER_HOME/.config/gdb/.gdbinit $USER_HOME/.gdbinit
+ln -s $USER_HOME/.config/mimeapps.list $USER_HOME/.local/share/applications/mimeapps.list
+ln -s $USER_HOME/.config/applications $USER_HOME/.local/share/applications
+
+mkdir -p $USER_HOME/.local/share/qutebrowser/userscripts
+ln -s $USER_HOME/.config/qutebrowser/custom-1pass $USER_HOME/.local/share/qutebrowser/userscripts/custom-1pass
 
 mkdir git
 touch git/.gitconfig
-ln -s ~/.config/git/.gitconfig ~/.gitconfig 
+ln -s $USER_HOME/.config/git/.gitconfig $USER_HOME/.gitconfig 
 echo "Please setup your .gitconfig manually"
 
 mv nchat nchat.old
