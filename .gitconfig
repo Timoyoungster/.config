@@ -3,22 +3,6 @@
 	name = Timoyoungster
 [push]
 	autoSetupRemote = true
-[alias]
-	cw = "!f() { \
-		url=$1; name=${2:-$(basename \"$url\" .git)}; \
-		mkdir \"$name\" && cd \"$name\" && \
-		git clone --bare --single-branch \"$url\" .bare && \
-		echo \"gitdir: ./.bare\" > .git && \
-		git config remote.origin.fetch \"+refs/heads/*:refs/remotes/origin/*\" && \
-		git fetch origin && \
-		default=$(git --git-dir=.bare symbolic-ref --short HEAD) && \
-		git worktree add \"${default////-}\" \"origin/$default\"; \
-	}; f"
-	w = "!f() { \
-		branch=${1?Branch name required}; \
-		git worktree add \"${branch////-}\" \"origin/$branch\"; \
-	}; f" # git checkout
-
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
