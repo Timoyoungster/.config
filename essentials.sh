@@ -65,6 +65,8 @@ essential_packages=(
 	hyprshot
 	mako
 	tofi # [aur]
+	greetd
+	greetd-tuigreet
 
 	# - text processing
 	neovim
@@ -130,6 +132,10 @@ yay -S --needed --noconfirm "${essential_packages[@]}"
 sudo systemctl enable systemd-resolved
 sudo systemctl enable bluetooth
 sudo systemctl enable ufw
+sudo systemctl enable greetd
+
+# setup greetd
+sudo sed -i 's/^command = .*$/command = "tuigreet --cmd start-hyprland"/' /etc/greetd/config.toml
 
 # - flatpak
 flatpak install com.infinipaint.infinipaint
