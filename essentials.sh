@@ -59,6 +59,7 @@ essential_packages=(
 	xdg-desktop-portal-hyprland
 	xdg-desktop-portal-gtk
 	brightnessctl
+	batsignal
 	hyprpaper
 	hyprlock
 	hyprcursor
