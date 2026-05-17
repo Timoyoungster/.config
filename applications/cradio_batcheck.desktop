@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Cradio Batcheck
+Exec=cradio_batcheck
+Type=Application
+Terminal=false
