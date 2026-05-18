@@ -21,9 +21,9 @@ hl.monitor({
   position = "auto",
   scale    = "auto",
 })
-hl.monitor({ output = "DP-1", mode = "3840x2160@120", position = "auto-center-up", scale = 1.6 })
-hl.monitor({ output = "DP-2", mode = "1920x1080@120", position = "auto-center-up", scale = 1 })
-hl.monitor({ output = "eDP-1", mode = "2560x1600@180", position = "auto", scale = 1.6 })
+hl.monitor({ output = "DP-1",     mode = "3840x2160@120", position = "auto-center-up", scale = 1.6 })
+hl.monitor({ output = "HDMI-A-1", mode = "1920x1080@144", position = "auto-center-up", scale = 1 })
+hl.monitor({ output = "eDP-1",    mode = "2560x1600@180", position = "auto", scale = 1.6 })
 
 hl.config({
   xwayland = {
@@ -334,6 +334,19 @@ hl.define_submap("resize", function()
   hl.bind("h", hl.dsp.window.resize({ x = -10, y =   0, relative = true }), { repeating = true })
   hl.bind("k", hl.dsp.window.resize({ x =   0, y = -10, relative = true }), { repeating = true })
   hl.bind("j", hl.dsp.window.resize({ x =   0, y =  10, relative = true }), { repeating = true })
+
+  hl.bind("catchall", hl.dsp.submap("reset"))
+
+end)
+
+-- Move workflows to monitors
+hl.bind(mainMod .. " + SHIFT + W", hl.dsp.submap("move_workflow"))
+hl.define_submap("move_workflow", function()
+
+  hl.bind("l", hl.dsp.workspace.move({ monitor = "l" }))
+  hl.bind("h", hl.dsp.workspace.move({ monitor = "r" }))
+  hl.bind("k", hl.dsp.workspace.move({ monitor = "u" }))
+  hl.bind("j", hl.dsp.workspace.move({ monitor = "d" }))
 
   hl.bind("catchall", hl.dsp.submap("reset"))
 
