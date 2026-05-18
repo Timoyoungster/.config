@@ -21,7 +21,7 @@ hl.monitor({
   position = "auto",
   scale    = "auto",
 })
-hl.monitor({ output = "DP-1",     mode = "3840x2160@120", position = "auto-center-up", scale = 1.6 })
+-- hl.monitor({ output = "DP-1",     mode = "3840x2160@120", position = "auto-center-up", scale = 1.6 })
 hl.monitor({ output = "HDMI-A-1", mode = "1920x1080@144", position = "auto-center-up", scale = 1 })
 hl.monitor({ output = "eDP-1",    mode = "2560x1600@180", position = "auto", scale = 1.6 })
 
