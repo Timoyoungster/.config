@@ -235,8 +235,7 @@ hl.config({
     kb_options = "",
     kb_rules   = "",
 
-    accel_profile = flat,
-    force_no_accel = true,
+    accel_profile = "flat",
 
     follow_mouse = 2,
 
