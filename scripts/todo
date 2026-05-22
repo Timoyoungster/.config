@@ -1,0 +1,3 @@
+#!/bin/sh
+
+TODOIST_API_TOKEN="op://Private/fnpdab3hs33wcbalnaxim6glje/password" op run -- terminalist
