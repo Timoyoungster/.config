@@ -288,7 +288,7 @@ hl.bind(mainMod .. " + F", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + S", hl.dsp.layout("togglesplit"))    -- dwindle only
 hl.bind(mainMod .. " + Z", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
 hl.bind(mainMod .. " + M", hl.dsp.window.fullscreen({ mode = "maximized" }))
-hl.bind(mainMod .. " + M", hl.dsp.window.pin())
+hl.bind(mainMod .. " + P", hl.dsp.window.pin())
 
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + SHIFT + SPACE", hl.dsp.exec_cmd("1password --quick-access"))
