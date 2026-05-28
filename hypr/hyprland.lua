@@ -36,10 +36,11 @@ hl.config({
 ---------------------
 
 -- Set programs that you use
-local terminal    = "ghostty +new-window"
-local bareterm    = "ghostty -e /bin/env zsh"
-local browser     = "firefox"
-local menu        = "tofi-drun"
+local terminal_init = "ghostty"
+local terminal      = "ghostty +new-window"
+local bareterm      = "ghostty -e /bin/env zsh"
+local browser       = "firefox"
+local menu          = "tofi-drun"
 
 
 -------------------
@@ -56,9 +57,9 @@ hl.on("hyprland.start", function ()
   hl.exec_cmd("systemctl --user start hyprpolkitagent")
   hl.exec_cmd("hyprpaper")
   hl.exec_cmd("batsignal")
-  hl.exec_cmd(terminal)
-  hl.exec_cmd(browser)
-  hl.exec_cmd("1password")
+  hl.exec_cmd(terminal_init, { workspace = "4 silent" })
+  hl.exec_cmd(browser, { workspace = "1 silent" })
+  hl.exec_cmd("1password", { workspace = 5 })
 end)
 
 
