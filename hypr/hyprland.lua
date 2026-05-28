@@ -416,24 +416,24 @@ hl.workspace_rule({ workspace = "4", default_name = "code" }) -- , monitor = "eD
 hl.workspace_rule({ workspace = "5", default_name = "1password" }) -- , monitor = "eDP-1" })
 hl.workspace_rule({ workspace = "6", default_name = "external" }) -- , monitor = "DP-2" })
 
-local move_main_workspaces = function(to)
-  for i = 1, 5 do
-    hl.notification.create({ text = "moving workspace " .. i, duration = 1000 })
-    hl.dsp.workspace.move({ workspace = tostring(i), monitor = tostring(to) })
-  end
-end
-
-hl.on("monitor.added", function(mon)
-  hl.notification.create({ text = "Moving main workspaces to monitor " .. mon.name, duration = 3000 })
-  move_main_workspaces(mon.name)
-end)
-
-hl.on("monitor.removed", function(mon)
-  hl.notification.create({ 
-    text = "Moving main workspaces from monitor " .. mon.name .. " to eDP-1", 
-    duration = 3000 
-  })
-  move_main_workspaces("eDP-1")
-end)
+-- local move_main_workspaces = function(to)
+--   for i = 1, 5 do
+--     hl.notification.create({ text = "moving workspace " .. i, duration = 1000 })
+--     hl.dsp.workspace.move({ workspace = tostring(i), monitor = tostring(to) })
+--   end
+-- end
+--
+-- hl.on("monitor.added", function(mon)
+--   hl.notification.create({ text = "Moving main workspaces to monitor " .. mon.name, duration = 3000 })
+--   move_main_workspaces(mon.name)
+-- end)
+--
+-- hl.on("monitor.removed", function(mon)
+--   hl.notification.create({ 
+--     text = "Moving main workspaces from monitor " .. mon.name .. " to eDP-1", 
+--     duration = 3000 
+--   })
+--   move_main_workspaces("eDP-1")
+-- end)
 
 -- vim:ts=2 sw=2 et:
