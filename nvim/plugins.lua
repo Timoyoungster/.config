@@ -45,6 +45,9 @@ add({
   depends = { 'nvim-lua/plenary.nvim' },
 })
 
+-- git
+add('tpope/vim-fugitive')
+
 -------------
 -- CONFIGS --
 -------------
@@ -93,6 +96,13 @@ vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
 -- Toggle previous & next buffers stored within Harpoon list
 vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
 vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
+
+-- FUGITIVE
+
+vim.keymap.set("n", "<leader>g", ":Git ")
+
+
+-- OTHER
 
 -- Modern Treesitter-aware highlight inspector for Neovim main branch
 function ShowTSHighlight()
