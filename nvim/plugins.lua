@@ -99,7 +99,7 @@ vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
 
 -- FUGITIVE
 
-vim.keymap.set("n", "<leader>g", ":Git ")
+vim.keymap.set("n", "<leader>g", ":G<cr>")
 
 
 -- OTHER
