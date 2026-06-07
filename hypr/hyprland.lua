@@ -344,8 +344,8 @@ end)
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.submap("move_workflow"))
 hl.define_submap("move_workflow", function()
 
-  hl.bind("l", hl.dsp.workspace.move({ monitor = "l" }))
-  hl.bind("h", hl.dsp.workspace.move({ monitor = "r" }))
+  hl.bind("l", hl.dsp.workspace.move({ monitor = "r" }))
+  hl.bind("h", hl.dsp.workspace.move({ monitor = "l" }))
   hl.bind("k", hl.dsp.workspace.move({ monitor = "u" }))
   hl.bind("j", hl.dsp.workspace.move({ monitor = "d" }))
 
