@@ -10,6 +10,8 @@ set smartcase
 set wildoptions=fuzzy,tagfile
 set wildchar=<C-n>
 
+set colorcolumn=80
+
 set completeopt=fuzzy
 
 set guicursor=
