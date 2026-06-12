@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Time
+Exec=sh -c 'timedatectl show | grep RTCTimeUSec | sed 's/RTCTimeUSec=//' | xargs -I {} notify-send "{}"'
+Type=Application
+Terminal=false
