@@ -61,6 +61,7 @@ hl.on("hyprland.start", function ()
   hl.exec_cmd(terminal_init, { workspace = "4 silent" })
   hl.exec_cmd(browser, { workspace = "1 silent" })
   hl.exec_cmd("1password", { workspace = 5 })
+  hl.exec_cmd("pcloudcc -u timo.proemer04@gmail.com -d -m ~/pcloud")
 end)
 
 
