@@ -113,6 +113,7 @@ essential_packages=(
 	volta # [aur]
 	hyperfine
 	ghostty
+	cloc
 
 	# - social
 	nchat # [aur]
