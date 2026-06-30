@@ -21,9 +21,9 @@ hl.monitor({
   position = "auto",
   scale    = "auto",
 })
-hl.monitor({ output = "DP-1",     mode = "3840x2160@120", position = "auto-center-up", scale = 2 })
-hl.monitor({ output = "DP-2",     mode = "3840x2160@120", position = "auto-center-up", scale = 2 })
-hl.monitor({ output = "HDMI-A-1", mode = "1920x1080@144", position = "auto-center-up", scale = 1 })
+-- hl.monitor({ output = "DP-1",     mode = "3840x2160@120", position = "auto-center-up", scale = 2 })
+-- hl.monitor({ output = "DP-2",     mode = "3840x2160@120", position = "auto-center-up", scale = 2 })
+hl.monitor({ output = "HDMI-A-1", mode = "3840x2160@120", position = "auto-center-up", scale = 2 })
 hl.monitor({ output = "eDP-1",    mode = "2560x1600@180", position = "auto", scale = 1.6 })
 
 hl.config({
@@ -71,7 +71,11 @@ end)
 
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
 
-hl.env("QT_QPA_PLATFORMTHEME","qt6ct")
+-- dark theme
+hl.env("QT_QPA_PLATFORMTHEME","hyprqt6engine")
+hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme \"prefer-dark\"")
+hl.exec_cmd("gsettings set org.gnome.desktop.interface gtk-theme \"adw-gtk3\"")
+
 hl.env("HYPRCURSOR_THEME","Future-Cyan-Hyprcursor_Theme")
 hl.env("HYPRCURSOR_SIZE","40")
 hl.env("XCURSOR_SIZE","24")
@@ -425,17 +429,26 @@ hl.workspace_rule({ workspace = "6", default_name = "external" }) -- , monitor =
 --   end
 -- end
 --
--- hl.on("monitor.added", function(mon)
---   hl.notification.create({ text = "Moving main workspaces to monitor " .. mon.name, duration = 3000 })
---   move_main_workspaces(mon.name)
--- end)
---
--- hl.on("monitor.removed", function(mon)
---   hl.notification.create({ 
---     text = "Moving main workspaces from monitor " .. mon.name .. " to eDP-1", 
---     duration = 3000 
---   })
---   move_main_workspaces("eDP-1")
--- end)
+hl.on("monitor.added", function(mon)
+  hl.notification.create({ 
+    text = "Monitor added: " .. mon.name,
+    duration = 5000
+  })
+  monitors = hl.get_monitors()
+  if #monitors > 1 then
+    hl.monitor({ output = 'eDP-1', disabled = true })
+  end
+end)
+
+hl.on("monitor.removed", function(mon)
+  hl.notification.create({ 
+    text = "Monitor removed: " .. mon.name, 
+    duration = 5000 
+  })
+  monitors = hl.get_monitors()
+  if #monitors == 0 then
+    hl.monitor({ output = 'eDP-1', disabled = false })
+  end
+end)
 
 -- vim:ts=2 sw=2 et:
