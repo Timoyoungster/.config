@@ -4,3 +4,4 @@ image/png=imv.desktop
 image/jpeg=imv.desktop
 image/jpg=imv.desktop
 image/gif=imv.desktop
+x-scheme-handler/postman=Postman.desktop
