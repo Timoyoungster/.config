@@ -71,6 +71,7 @@ glide.keymaps.set("normal", "<C-p>", glide.findbar.previous_match);
 // -----------------
 glide.keymaps.set("command", "<c-n>", "commandline_focus_next");
 glide.keymaps.set("command", "<c-p>", "commandline_focus_back");
+glide.keymaps.set("command", "<c-c>", "commandline_toggle");
 
 
 // vim: ts=2 sw=2 et:
