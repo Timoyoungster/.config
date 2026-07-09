@@ -54,10 +54,13 @@ const openBookmarksPicker = async () => {
 glide.keymaps.set("normal", "<leader>r", "config_reload");
 
 // tab movement
-glide.keymaps.set("normal", "<leader>ff", "keys <leader><leader>");
+glide.keymaps.set("normal", "<leader>ff", "commandline_show search ");
+glide.keymaps.set("normal", "<leader>fn", "commandline_show search -n ");
+glide.keymaps.set("normal", "<leader>ft", "commandline_show tab ");
 glide.keymaps.set("normal", "<leader>fb", openBookmarksPicker, {
   description: "Open the bookmarks picker",
 });
+
 
 // findbar
 glide.keymaps.set("normal", "/", glide.findbar.open);
@@ -73,5 +76,51 @@ glide.keymaps.set("command", "<c-n>", "commandline_focus_next");
 glide.keymaps.set("command", "<c-p>", "commandline_focus_back");
 glide.keymaps.set("command", "<c-c>", "commandline_toggle");
 
+// ----------------
+// ---- EXCMDS ----
+// ----------------
+
+const search_cmd = glide.excmds.create({
+  name: "search",
+  description: "Run a search query",
+}, async ({ args_arr, tab_id }) => {
+  let disp = "CURRENT_TAB";
+  if (args_arr[0] === "-n" || args_arr[0] === "--new-tab") {
+    args_arr.shift();
+    disp = "NEW_TAB";
+  }
+
+  let search_string = args_arr.join(" ").trim();
+
+  if (URL.canParse(search_string) || URL.canParse("https://" + search_string)) {
+    if (!search_string.startsWith("http://") 
+        && !search_string.startsWith("https://")) {
+      search_string = "https://" + search_string;
+    }
+    if (disp === "CURRENT_TAB") {
+      await browser.tabs.update(tab_id, {
+        active: true,
+        url: search_string,
+      });
+    } else {
+      await browser.tabs.create({
+        active: true,
+        url: search_string,
+      });
+    }
+  } else {
+    await browser.search.search({
+      disposition: disp,
+      query: search_string
+    });
+  }
+
+});
+
+declare global {
+  interface ExcmdRegistry {
+    search: typeof search_cmd;
+  }
+}
 
 // vim: ts=2 sw=2 et:
