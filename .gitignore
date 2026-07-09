@@ -51,6 +51,8 @@
 !bugwarrior/*
 !/applications
 !applications/*
+!/glide
+!glide/glide.ts
 
 # special handling for nchat
 !/nchat
