@@ -101,7 +101,6 @@ vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
 
 vim.keymap.set("n", "<leader>g", ":G<cr>")
 
-
 -- OTHER
 
 -- Modern Treesitter-aware highlight inspector for Neovim main branch
