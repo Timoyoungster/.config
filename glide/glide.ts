@@ -92,7 +92,7 @@ const search_cmd = glide.excmds.create({
 
   let search_string = args_arr.join(" ").trim();
 
-  if (URL.canParse(search_string) || URL.canParse("https://" + search_string)) {
+  if (!search_string.includes(" ") && search_string.includes(".")) {
     if (!search_string.startsWith("http://") 
         && !search_string.startsWith("https://")) {
       search_string = "https://" + search_string;
