@@ -44,7 +44,7 @@ hl.config({
 local terminal_init = "ghostty"
 local terminal      = "ghostty +new-window"
 local bareterm      = "ghostty -e /bin/env zsh"
-local browser       = "firefox"
+local browser       = "glide-bin"
 local menu          = "tofi-drun"
 
 
