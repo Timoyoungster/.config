@@ -5,3 +5,25 @@ image/jpeg=imv.desktop
 image/jpg=imv.desktop
 image/gif=imv.desktop
 x-scheme-handler/postman=Postman.desktop
+x-scheme-handler/http=userapp-Glide-UKGTR3.desktop
+x-scheme-handler/https=userapp-Glide-UKGTR3.desktop
+x-scheme-handler/chrome=userapp-Glide-UKGTR3.desktop
+text/html=userapp-Glide-UKGTR3.desktop
+application/x-extension-htm=userapp-Glide-UKGTR3.desktop
+application/x-extension-html=userapp-Glide-UKGTR3.desktop
+application/x-extension-shtml=userapp-Glide-UKGTR3.desktop
+application/xhtml+xml=userapp-Glide-UKGTR3.desktop
+application/x-extension-xhtml=userapp-Glide-UKGTR3.desktop
+application/x-extension-xht=userapp-Glide-UKGTR3.desktop
+
+[Added Associations]
+x-scheme-handler/http=userapp-Glide-UKGTR3.desktop;
+x-scheme-handler/https=userapp-Glide-UKGTR3.desktop;
+x-scheme-handler/chrome=userapp-Glide-UKGTR3.desktop;
+text/html=userapp-Glide-UKGTR3.desktop;
+application/x-extension-htm=userapp-Glide-UKGTR3.desktop;
+application/x-extension-html=userapp-Glide-UKGTR3.desktop;
+application/x-extension-shtml=userapp-Glide-UKGTR3.desktop;
+application/xhtml+xml=userapp-Glide-UKGTR3.desktop;
+application/x-extension-xhtml=userapp-Glide-UKGTR3.desktop;
+application/x-extension-xht=userapp-Glide-UKGTR3.desktop;
