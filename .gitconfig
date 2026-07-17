@@ -1,6 +1,7 @@
 [user]
 	email = timo.proemer04@gmail.com
-	name = Timoyoungster
+	name = Timo Prömer
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB+SgG8Fvm8Ms+uJkjR+MV+fyCCIpjqt568jPqp52r47
 [push]
 	autoSetupRemote = true
 [filter "lfs"]
@@ -8,3 +9,17 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /opt/1Password/op-ssh-sign
+[commit]
+	gpgsign = true
+[init]
+	defaultBranch = main
+[sendemail]
+	smtpencryption = tls
+	smtpserver = smtp.gmail.com
+	smtpuser = timo.proemer04@gmail.com
+	smtpserverport = 587
+
