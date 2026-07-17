@@ -23,8 +23,12 @@ hl.monitor({
 })
 -- hl.monitor({ output = "DP-1",     mode = "3840x2160@120", position = "auto-center-up", scale = 2 })
 -- hl.monitor({ output = "DP-2",     mode = "3840x2160@120", position = "auto-center-up", scale = 2 })
-hl.monitor({ output = "HDMI-A-1", mode = "3840x2160@120", position = "auto-center-up", scale = 2 })
 hl.monitor({ output = "eDP-1",    mode = "2560x1600@180", position = "auto", scale = 1.6 })
+hl.monitor({ output = "HDMI-A-1", mode = "3840x2160@240", position = "auto-center-up", scale = 2 })
+
+function disable_builtin_monitor()
+  hl.monitor({ output = "eDP-1", disabled = true})
+end
 
 hl.config({
   xwayland = {
@@ -381,6 +385,10 @@ hl.bind(mainMod .. " + G", hl.dsp.exec_cmd("makoctl invoke & makoctl dismiss"), 
 -- screenshot
 hl.bind(mainMod .. " + ALT + S", hl.dsp.exec_cmd("hyprshot -m active -m window -- imv"))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("hyprshot -m active -m window --clipboard-only"))
+hl.bind(mainMod .. " + SHIFT + ALT + S", hl.dsp.exec_cmd("hyprshot -m region --clipboard-only"))
+
+hl.bind(mainMod .. " + ALT + B", disable_builtin_monitor)
+-- hl.bind(mainMod .. " + SHIFT + ALT + B", configure_builtin_monitor)
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
@@ -422,33 +430,26 @@ hl.workspace_rule({ workspace = "4", default_name = "code" }) -- , monitor = "eD
 hl.workspace_rule({ workspace = "5", default_name = "1password" }) -- , monitor = "eDP-1" })
 hl.workspace_rule({ workspace = "6", default_name = "external" }) -- , monitor = "DP-2" })
 
--- local move_main_workspaces = function(to)
---   for i = 1, 5 do
---     hl.notification.create({ text = "moving workspace " .. i, duration = 1000 })
---     hl.dsp.workspace.move({ workspace = tostring(i), monitor = tostring(to) })
+-- hl.on("monitor.added", function(mon)
+--   hl.notification.create({ 
+--     text = "Monitor added: " .. mon.name,
+--     duration = 5000
+--   })
+--   monitors = hl.get_monitors()
+--   if #monitors > 1 then
+--     hl.monitor({ output = 'eDP-1', disabled = true })
 --   end
--- end
+-- end)
 --
-hl.on("monitor.added", function(mon)
-  hl.notification.create({ 
-    text = "Monitor added: " .. mon.name,
-    duration = 5000
-  })
-  monitors = hl.get_monitors()
-  if #monitors > 1 then
-    hl.monitor({ output = 'eDP-1', disabled = true })
-  end
-end)
-
-hl.on("monitor.removed", function(mon)
-  hl.notification.create({ 
-    text = "Monitor removed: " .. mon.name, 
-    duration = 5000 
-  })
-  monitors = hl.get_monitors()
-  if #monitors == 0 then
-    hl.monitor({ output = 'eDP-1', disabled = false })
-  end
-end)
+-- hl.on("monitor.removed", function(mon)
+--   hl.notification.create({ 
+--     text = "Monitor removed: " .. mon.name, 
+--     duration = 5000 
+--   })
+--   monitors = hl.get_monitors()
+--   if #monitors == 0 then
+--     configure_builtin_monitor()
+--   end
+-- end)
 
 -- vim:ts=2 sw=2 et:
