@@ -68,6 +68,9 @@ hl.on("hyprland.start", function ()
   hl.exec_cmd("pcloudcc -u timo.proemer04@gmail.com -d -m ~/pcloud")
 end)
 
+hl.on("hyprland.shutdown", function ()
+  hl.exec_cmd("echo finalize | pcloudcc -k")
+end)
 
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
