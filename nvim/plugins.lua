@@ -62,6 +62,7 @@ vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' 
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 vim.keymap.set('n', '<leader>ft', builtin.treesitter, { desc = 'Telescope symbol search' })
 vim.keymap.set('n', '<leader>f.', builtin.resume, { desc = 'Telescope resume search' })
+vim.keymap.set('n', '<leader>fm', builtin.man_pages, { desc = 'Telescope man pages search' })
 
 -- TREESITTER
 local availiable_langs = require('nvim-treesitter.parsers')
