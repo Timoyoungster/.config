@@ -3,8 +3,14 @@
 VPN_USER="op://Private/sgic242a4nhyihwbx76ms3w5vq/username"
 VPN_PASS="op://Private/sgic242a4nhyihwbx76ms3w5vq/password"
 VPN_MFA="op://Private/sgic242a4nhyihwbx76ms3w5vq/one-time password?attribute=otp"
-VPN_URL="op://Private/sgic242a4nhyihwbx76ms3w5vq/url"
 VPN_METHOD="op://Private/sgic242a4nhyihwbx76ms3w5vq/method"
+
+if [ $# -gt 0 ] && [ $1 = "backup" ]; then
+	echo "\033[34mINFO:\033[0m Using backup url"
+	VPN_URL="op://Private/sgic242a4nhyihwbx76ms3w5vq/backup-url"
+else
+	VPN_URL="op://Private/sgic242a4nhyihwbx76ms3w5vq/url"
+fi
 
 echo Connecting to Tunnel ...
 sudo snx-rs -o $(op read $VPN_METHOD) -s $(op read $VPN_URL) -X true -u $(op read $VPN_USER) -p $(op read $VPN_PASS) -F $(op read $VPN_MFA)
