@@ -2,7 +2,7 @@ syntax on
 
 set notermguicolors
 set laststatus=0
-silent! colorscheme quiet
+silent! colorscheme phantom-shadow
 
 set ignorecase
 set wildignorecase
