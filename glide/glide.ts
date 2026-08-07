@@ -52,6 +52,8 @@ const openBookmarksPicker = async () => {
 // ----------------
 
 glide.keymaps.set("normal", "<leader>r", "config_reload");
+glide.keymaps.set("normal", "rr", "reload");
+glide.keymaps.set("normal", "RR", "reload_hard");
 
 // tab movement
 glide.keymaps.set("normal", "<leader>ff", "commandline_show search ");
