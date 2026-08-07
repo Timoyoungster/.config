@@ -74,9 +74,12 @@ glide.keymaps.set("normal", "<C-p>", glide.findbar.previous_match);
 // -----------------
 // ---- COMMAND ----
 // -----------------
+glide.keymaps.set("command", "<c-d>", "commandline_focus_next");
 glide.keymaps.set("command", "<c-n>", "commandline_focus_next");
+glide.keymaps.set("command", "<c-u>", "commandline_focus_back");
 glide.keymaps.set("command", "<c-p>", "commandline_focus_back");
 glide.keymaps.set("command", "<c-c>", "commandline_toggle");
+glide.keymaps.set("command", "<c-x>", "commandline_delete");
 
 // ----------------
 // ---- EXCMDS ----
