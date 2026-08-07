@@ -68,9 +68,12 @@ export PATH=$PATH:/home/timo/.cargo/env
 export PATH=$PATH:/home/timo/.cargo/bin
 export PATH=$PATH:/home/timo/go/bin
 # export PATH=$PATH:./node_modules/.bin
-export PATH=$PATH:~/.volta/bin
-export PATH=~/.config/scripts:$PATH
-export PATH=~/.local/bin:$PATH
+export PATH="~/.config/scripts:$PATH"
+export PATH="~/.local/bin:$PATH"
+
+# volta (nodejs)
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
 
 # texlive paths
 export PATH=$PATH:/usr/local/texlive/2025/bin/x86_64-linux
