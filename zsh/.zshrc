@@ -68,8 +68,8 @@ export PATH=$PATH:/home/timo/.cargo/env
 export PATH=$PATH:/home/timo/.cargo/bin
 export PATH=$PATH:/home/timo/go/bin
 # export PATH=$PATH:./node_modules/.bin
-export PATH="~/.config/scripts:$PATH"
-export PATH="~/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.config/scripts:$PATH"
 
 # volta (nodejs)
 export VOLTA_HOME="$HOME/.volta"
