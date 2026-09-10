@@ -23,3 +23,5 @@
 	smtpuser = timo.proemer04@gmail.com
 	smtpserverport = 587
 
+[merge]
+	tool = nvimdiff
