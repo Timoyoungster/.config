@@ -4,7 +4,12 @@ news.version=3.4.1
 report.custom.description=Custom output format
 report.custom.columns=id,project,due.relative,description.truncated,urgency
 report.custom.sort=due+,project+,id+
-report.custom.filter=status:pending +READY
+report.custom.filter=status:pending +READY (project.not:work or +assignee_timo)
+
+report.work.description=Work tasks
+report.work.columns=id,project,due.relative,description.truncated,urgency
+report.work.sort=due+,project+,id+
+report.work.filter=status:pending +READY project:work
 
 report.detail.description=Custom verbose output format
 report.detail.columns=id,project,due,description,urgency
@@ -13,27 +18,3 @@ report.detail.filter=status:pending +READY
 
 default.command=custom
 
-# Bugwarrior UDAs
-uda.todoistid.type=string
-uda.todoistid.label=Todoist ID
-uda.todoistcontent.type=string
-uda.todoistcontent.label=Todoist Content
-uda.todoistdescription.type=string
-uda.todoistdescription.label=Todoist Description
-uda.todoistdue.type=date
-uda.todoistdue.label=Todoist Due Date
-uda.todoistdeadline.type=date
-uda.todoistdeadline.label=Todoist Deadline Date
-uda.todoistduration.type=string
-uda.todoistduration.label=Todoist Duration
-uda.todoistsection.type=string
-uda.todoistsection.label=Todoist Section
-uda.todoistassignee.type=string
-uda.todoistassignee.label=Todoist Assignee
-uda.todoistassigner.type=string
-uda.todoistassigner.label=Todoist Assigner
-uda.todoisturl.type=string
-uda.todoisturl.label=Todoist URL
-uda.todoistparentid.type=string
-uda.todoistparentid.label=Todoist Parent ID
-# END Bugwarrior UDAs
