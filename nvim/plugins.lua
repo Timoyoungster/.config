@@ -75,7 +75,7 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = availiable_parsers,
   callback = function(args)
     local lang = vim.bo[args.buf].filetype
-    require('nvim-treesitter').install({ lang }):wait(1000 * 60 * 5) -- wait max 5 mins
+    require('nvim-treesitter').install({ lang }):wait(1000) -- wait max 1 sec
     vim.treesitter.start()
   end,
 })

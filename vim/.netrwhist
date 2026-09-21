@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =3
+let g:netrw_dirhistcnt =4
+let g:netrw_dirhist_4='/Users/timo/.config/nvim'
 let g:netrw_dirhist_3='/Users/timo/work/KOPUnited-phone-bot/src/app/hooks'
 let g:netrw_dirhist_2='/Users/timo/work/KOPUnited-phone-bot/src/app'
 let g:netrw_dirhist_1='/Users/timo/work/KOPUnited-phone-bot/src'
