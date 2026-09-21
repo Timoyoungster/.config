@@ -83,8 +83,8 @@ export INFOPATH=$INFOPATH:/usr/local/texlive/2025/texmf-dist/doc/info
 
 alias sudo='sudo ' # make aliases work with sudo http://www.linuxcommand.org/lc3_man_pages/aliash.html
 alias ll="ls -a -h -l --color=always -v "
-alias lx="ls -a -h --color=always -v "
-alias lxs="ls -a -h -l --color=always  -v | less -R "
+alias la="ls -a -h --color=always -v "
+alias las="ls -a -h -l --color=always  -v | less -R "
 alias gs="git status "
 alias gd="git diff "
 alias ga="git add "

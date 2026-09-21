@@ -43,9 +43,9 @@ fzf-history-widget() {
 }
 
 zle     -N            fzf-history-widget
-bindkey -M emacs '^R' fzf-history-widget
-bindkey -M vicmd '^R' fzf-history-widget
-bindkey -M viins '^R' fzf-history-widget
+bindkey -M emacs '^P' fzf-history-widget
+bindkey -M vicmd '^P' fzf-history-widget
+bindkey -M viins '^P' fzf-history-widget
 
 run-fg() {
   fg
