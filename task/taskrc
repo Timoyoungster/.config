@@ -1,22 +1,33 @@
 data.location=~/.task
 news.version=3.5.0
 
-report.custom.description=Custom output format
-report.custom.columns=id,project,due.relative,description.truncated,urgency
-report.custom.sort=due+,project+,id+
-report.custom.filter=status:pending +READY (project.not:work or +assignee_timo)
+urgency.user.project.work.coefficient=-5
+
+report.todo.description=Custom output format
+report.todo.columns=id,project,due.relative,description.truncated,urgency
+report.todo.sort=urgency-,due+,project+,id+
+report.todo.filter=status:pending +READY (project.not:work or +assignee_timo)
+
+report.work.all.description=Work tasks
+report.work.all.columns=id,project,due.relative,description,urgency
+report.work.all.sort=urgency-,due+,project+,id+
+report.work.all.filter=status:pending +READY project:work
 
 report.work.description=Work tasks
-report.work.columns=id,project,due.relative,description.truncated,urgency
-report.work.sort=due+,project+,id+
-report.work.filter=status:pending +READY project:work
+report.work.columns=id,project,due.relative,description,urgency
+report.work.sort=urgency-,due+,project+,id+
+report.work.filter=status:pending +READY project:work +assignee_timo
+
+report.home.description=Personal tasks
+report.home.columns=id,project,due.relative,description,urgency
+report.home.sort=urgency-,due+,project+,id+
+report.home.filter=status:pending +READY project.not:work
 
 report.detail.description=Custom verbose output format
 report.detail.columns=id,project,due,description,urgency
 report.detail.sort=due+,project+,id+
 report.detail.filter=status:pending +READY
 
-default.command=custom
+default.command=todo
 
-
-sync.server.url=https://tasks.timoyoungster.com
+sync.server.url=https:\/\/tasks.timoyoungster.com
