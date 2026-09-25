@@ -30,4 +30,4 @@ report.detail.filter=status:pending +READY
 
 default.command=todo
 
-sync.server.url=https:\/\/tasks.timoyoungster.com
+sync.server.url=https://tasks.timoyoungster.com
