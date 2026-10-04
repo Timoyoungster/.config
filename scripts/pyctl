@@ -1,0 +1,102 @@
+#!/bin/env sh
+
+show_help() {
+  echo "Usage: $(basename "$0") COMMAND"
+  echo "Commands:"
+  echo "  setup     Set up a local python venv with requirements.txt"
+  echo "  reset     Reset the local python venv to a clean state"
+  echo "  sync      Sync installed packages to requirements.txt"
+  echo "  update    Update all packages to their latest version"
+  echo "  help      Show this help text"
+}
+
+yes_or_no() {
+  while true; do
+        read -p "$* [y/n]: " yn
+        case $yn in
+            [Yy]*) return 0  ;;  
+            [Nn]*) echo "Aborted" ; return  1 ;;
+        esac
+    done
+}
+
+setup_venv() {
+  if ! [ -d ".venv" ] || ! [ -e ".venv/bin/activate" ]; then
+    echo Setting up new venv
+    python -m venv --prompt replace-this --upgrade-deps ".venv"
+    sed -i 's/replace-this/\\./g' .venv/bin/activate
+    echo Temporarily activating venv
+    source .venv/bin/activate
+    echo Installing requirements
+    pip install pip-tools pip-review
+    pip-compile requirements.txt -o requirements.lock
+    pip-sync requirements.lock
+    echo Setup completed successfully
+  else
+    echo -e "\033[0;31mERROR:\033[0m venv already exists at \033[0;34m\".venv\"\033[0m 
+       (run update_reqs if requirements changed)"
+  fi
+}
+
+reset_venv() {
+  echo This operation deletes all packages installed in the venv.
+  if yes_or_no "Continue anyways?"; then
+    echo Deleting venv
+    rm -rf .venv
+    setup_venv
+  fi
+}
+
+sync_venv() {
+  if [ -d ".venv" ] && [ -e ".venv/bin/activate" ]; then
+    source .venv/bin/activate
+    pip-compile requirements.txt -o requirements.lock
+    pip-sync requirements.lock
+  else
+    echo -e "\033[0;31mERROR:\033[0m No local venv found! Please run setup first."
+  fi
+}
+
+update_venv() {
+  if [ -d ".venv" ] && [ -e ".venv/bin/activate" ]; then
+    source .venv/bin/activate
+    pip-compile --upgrade requirements.txt -o requirements.lock
+    pip-sync requirements.lock
+  else
+    echo -e "\033[0;31mERROR:\033[0m No local venv found! Please run setup first."
+  fi
+}
+
+if [[ $# -gt 0 ]]; then
+  case $1 in
+    setup)
+      setup_venv
+      exit 0
+      ;;
+    reset)
+      reset_venv
+      exit 0
+      ;;
+    sync)
+      sync_venv
+      exit 0
+      ;;
+    update)
+      update_venv
+      exit 0
+      ;;
+    help)
+      show_help
+      exit 0
+      ;;
+    *)
+      show_help
+      exit 0
+      ;;
+  esac
+fi
+
+# show help if no args given
+show_help
+
+# vim:ts=2 sw=2 et:
