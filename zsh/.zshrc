@@ -201,8 +201,15 @@ function tx () {
 }
 
 function venv () {
-  source ~/.pythonvenv/$1/bin/activate || return
-  echo "Activated python venv '$1'!"
+  if [ $# -eq 0 ]; then
+    if ! [ -d ".venv" ] || ! [ -e ".venv/bin/activate" ]; then
+      echo -e "\033[0;31mERROR:\033[0m No local venv found! Please specify a global one."
+    else
+      source .venv/bin/activate
+    fi
+  else
+    source ~/.pythonvenv/$1/bin/activate || return
+  fi
 }
 
 function Rrender () {
@@ -248,3 +255,5 @@ if [[ -f ~/.config/scripts/set_brightness ]]
 then
   source ~/.config/scripts/set_brightness
 fi
+
+# vim:ts=2 sw=2 et:
