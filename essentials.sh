@@ -125,6 +125,9 @@ essential_packages=(
 	steam
 	gamemoderun
 	mangohud
+
+	# - academic
+	zotero-bin # [aur]
 )
 
 yay -S --needed --noconfirm "${essential_packages[@]}"
