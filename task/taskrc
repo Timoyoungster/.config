@@ -1,6 +1,8 @@
 data.location=~/.task
 news.version=3.5.0
 
+journal.info=off
+
 urgency.user.project.work.coefficient=-5
 
 report.todo.description=Custom output format
