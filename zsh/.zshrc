@@ -154,6 +154,24 @@ function uni () {
   fi
 }
 
+function add-note () {
+  TITLE=$1
+  EDIT=false
+  if [ $# -gt 1 ]; then
+    if [ "$1" = "-e" ]; then
+      EDIT=true
+      TITLE=$2
+    elif [ "$2" = "-e" ]; then
+      EDIT=true
+    fi
+  fi
+  NAME=$(date "+%Y-%m-%d")-$TITLE
+  mkdir $NAME && touch $NAME/note.md
+  if [ "$EDIT" = true ]; then
+    vim $NAME/note.md
+  fi
+}
+
 function create-submission () {
   if [[ $PWD == *"/$SEMESTER/spv/a"* ]]
   then
@@ -243,3 +261,5 @@ if [[ -f ~/.config/scripts/set_brightness ]]
 then
   source ~/.config/scripts/set_brightness
 fi
+
+# vim:ts=2 sw=2 et:
