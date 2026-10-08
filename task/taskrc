@@ -21,9 +21,14 @@ report.work.sort=urgency+,due-,project-,id-
 report.work.filter=status:pending +READY project:work +assignee_timo
 
 report.home.description=Personal tasks
-report.home.columns=id,project,due.relative,description,urgency
+report.home.columns=id,project,due.relative,description.truncated,urgency
 report.home.sort=urgency+,due-,project-,id-
 report.home.filter=status:pending +READY project.not:work
+
+report.home.detail.description=Personal tasks
+report.home.detail.columns=id,project,due.relative,description,urgency
+report.home.detail.sort=urgency+,due-,project-,id-
+report.home.detail.filter=status:pending +READY project.not:work
 
 report.detail.description=Custom verbose output format
 report.detail.columns=id,project,due,description,urgency
