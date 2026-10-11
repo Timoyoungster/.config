@@ -5,6 +5,9 @@ journal.info=off
 
 urgency.user.project.work.coefficient=-5
 
+color.tagged=none
+color.tag.wip=rgb031
+
 report.todo.description=Custom output format
 report.todo.columns=id,project,due.relative,description.truncated,urgency
 report.todo.sort=urgency+,due-,project-,id-
