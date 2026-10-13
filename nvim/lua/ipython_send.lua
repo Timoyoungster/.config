@@ -9,24 +9,44 @@ local function capture(cmd)
 end
 
 local function detect_ipython_pane()
-  local panes = capture("tmux list-panes -a -F '#{pane_id}:#{pane_current_command}'")
-  if panes == "" then return nil end
+  local ids = capture("tmux list-panes -F '#{pane_id}:#{pane_current_command}:#{pane_active}' | grep 'python:0' | sed 's/:.*:.*//'")
+  if ids == "" then return nil end
 
-  for line in panes:gmatch("[^\r\n]+") do
-    local id, cmd = line:match("^(.-):(.*)$")
-    if id and cmd and cmd:lower():match("ipython") then
-      return id
-    end
-  end
-
-  for line in panes:gmatch("[^\r\n]+") do
-    local id, cmd = line:match("^(.-):(.*)$")
-    if id and cmd and cmd:lower():match("python") then
-      return id
-    end
+  for _, id in ipairs(vim.split(ids, "\n", { trimempty = true })) do
+    return id
   end
 
   return nil
+end
+
+local function send_block(pane, block)
+  -- %cpaste handles multiline Python without relying on the terminal's
+  -- bracketed-paste mode.  The latter may be disabled by IPython/readline,
+  -- causing its escape sequences to be inserted as literal source text.
+  local result = vim.system(
+    { "tmux", "load-buffer", "-" },
+    { stdin = block }
+  ):wait()
+  if result.code ~= 0 then
+    vim.notify("Could not load the tmux paste buffer", vim.log.levels.ERROR)
+    return false
+  end
+
+  vim.fn.system({ "tmux", "send-keys", "-t", pane, "-l", "%cpaste -q" })
+  vim.fn.system({ "tmux", "send-keys", "-t", pane, "Enter" })
+  vim.fn.system({ "tmux", "paste-buffer", "-t", pane })
+  vim.fn.system({ "tmux", "send-keys", "-t", pane, "Enter" })
+  -- The first "--" ends tmux option parsing; the second is the literal
+  -- %cpaste terminator sent to IPython.
+  vim.fn.system({ "tmux", "send-keys", "-t", pane, "-l", "--", "--" })
+  vim.fn.system({ "tmux", "send-keys", "-t", pane, "Enter" })
+
+  if vim.v.shell_error ~= 0 then
+    vim.notify("Could not send code to tmux pane " .. pane, vim.log.levels.ERROR)
+    return false
+  end
+
+  return true
 end
 
 function M.send_current_cell()
@@ -70,26 +90,9 @@ function M.send_current_cell()
     return
   end
 
-  -- Bracketed paste markers
-  local start_bp = "\x1b[200~"
-  local end_bp   = "\x1b[201~"
-  
-  -- IMPORTANT: final newline triggers auto-execution
-  local wrapped  = start_bp .. cell .. end_bp .. "\n"
-
-  -- Save wrapped cell into tmux buffer
-  local tmpfile = os.tmpname()
-  local f = io.open(tmpfile, "w")
-  f:write(wrapped)
-  f:close()
-
-  -- Load + paste as single atomic block
-  os.execute(string.format("tmux load-buffer %s", tmpfile))
-  os.execute(string.format("tmux paste-buffer -t %s", pane))
-
-  os.remove(tmpfile)
-
-  print("📤 Sent cell → " .. pane)
+  if send_block(pane, cell) then
+    print("📤 Sent cell → " .. pane)
+  end
 end
 
 function M.send_all_cells_up_to_current()
@@ -99,18 +102,7 @@ function M.send_all_cells_up_to_current()
 
   local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
 
-  -- Determine where the *current* cell starts
-  local current_start = cur_line
-  while current_start > 1 do
-    if lines[current_start]:match("^# %%%%") then break end
-    current_start = current_start - 1
-  end
-  if current_start == 1 and not lines[current_start]:match("^# %%%%") then
-    current_start = 1
-  end
-
-  -- We want all content *up to* the start of the current cell,
-  -- plus the full current cell.
+  -- Include everything from the start of the file through the current cell.
   local cells_end = cur_line
 
   -- Find where the current cell ends
@@ -143,23 +135,9 @@ function M.send_all_cells_up_to_current()
     return
   end
 
-  -- Wrap in bracketed-paste markers + trailing newline to auto-execute
-  local start_bp = "\x1b[200~"
-  local end_bp   = "\x1b[201~"
-  local wrapped  = start_bp .. block .. end_bp .. "\n"
-
-  -- Save block into tmux buffer and paste atomically
-  local tmpfile = os.tmpname()
-  local f = io.open(tmpfile, "w")
-  f:write(wrapped)
-  f:close()
-
-  os.execute(string.format("tmux load-buffer %s", tmpfile))
-  os.execute(string.format("tmux paste-buffer -t %s", pane))
-
-  os.remove(tmpfile)
-
-  print("📤 Sent ALL cells up to current → " .. pane)
+  if send_block(pane, block) then
+    print("📤 Sent ALL cells up to current → " .. pane)
+  end
 end
 
 return M

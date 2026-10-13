@@ -31,8 +31,8 @@ endif
 " Reset baseline
 set errorformat=
 
-" Python multi-line tracebacks
-set errorformat+=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+" Python multi-line tracebacks (one entry per frame, function name as text)
+set errorformat+=%A\ \ File\ \"%f\"\\,\ line\ %l\\,\ in\ %m,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%-C\ \ \ \ %.%#,%Z%[%^\ ]%\\@=%m
 
 " JS/TS (tsc / eslint)
 set errorformat+=%f\ %#(%l\\,%c):\ %trror\ %m
