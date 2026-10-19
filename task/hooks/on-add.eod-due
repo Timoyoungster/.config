@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+# Treat date-only due values (local midnight) as end of that day.
+import json
+import sys
+from datetime import datetime, timezone
+
+FMT = "%Y%m%dT%H%M%SZ"
+
+
+def fix(task):
+    due = task.get("due")
+    if due:
+        local = datetime.strptime(due, FMT).replace(tzinfo=timezone.utc).astimezone()
+        if (local.hour, local.minute, local.second) == (0, 0, 0):
+            eod = local.replace(hour=23, minute=59, second=59)
+            task["due"] = eod.astimezone(timezone.utc).strftime(FMT)
+    return task
+
+
+lines = sys.stdin.readlines()
+print(json.dumps(fix(json.loads(lines[-1]))))

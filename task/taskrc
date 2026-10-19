@@ -2,6 +2,7 @@ data.location=~/.task
 news.version=3.5.0
 
 journal.info=off
+hooks.location=~/.config/task/hooks
 
 urgency.user.project.work.coefficient=-5
 
