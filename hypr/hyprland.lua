@@ -61,15 +61,15 @@ hl.on("hyprland.start", function ()
   hl.exec_cmd("mako")
   hl.exec_cmd("systemctl --user start hyprpolkitagent")
   hl.exec_cmd("hyprpaper")
-  hl.exec_cmd("batsignal")
+  hl.exec_cmd("batsignal -n BAT0")
   hl.exec_cmd(terminal_init, { workspace = "4 silent" })
   hl.exec_cmd(browser, { workspace = "1 silent" })
   hl.exec_cmd("1password", { workspace = 5 })
-  hl.exec_cmd("pcloudcc -u timo.proemer04@gmail.com -d -m ~/pcloud")
+  -- hl.exec_cmd("pcloudcc -u timo.proemer04@gmail.com -d -m ~/pcloud")
 end)
 
 hl.on("hyprland.shutdown", function ()
-  hl.exec_cmd("echo finalize | pcloudcc -k")
+  -- hl.exec_cmd("echo finalize | pcloudcc -k")
 end)
 
 -------------------------------
@@ -379,7 +379,7 @@ hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tr
 hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = true })
 
-hl.bind("XF86Launch3", hl.dsp.exec_cmd("pkill -x wvkbd-mobintl || wvkbd-mobintl -L 300"), { locked = true })
+hl.bind("XF86Launch3", hl.dsp.exec_cmd("pkill -x wvkbd-custom || wvkbd-custom -L 300"), { locked = true })
 
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("makoctl dismiss"), { locked = true, repeating = true})
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("makoctl dismiss --all"), { locked = true, repeating = true})
