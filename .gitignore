@@ -41,6 +41,7 @@
 !nvim/lua/*
 !/task
 !task/*
+!task/hooks/*
 !/vim
 !vim/*
 !vim/colors
