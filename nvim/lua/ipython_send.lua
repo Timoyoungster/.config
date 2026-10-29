@@ -1,143 +1,105 @@
 local M = {}
 
-local function capture(cmd)
-  local f = io.popen(cmd)
-  if not f then return "" end
-  local result = f:read("*a")
-  f:close()
-  return result or ""
+local CELL_MARKER = "^# %%%%"
+
+local function tmux(args)
+  local result = vim.system(vim.list_extend({ "tmux" }, args), { text = true }):wait()
+  return result.code == 0, vim.trim(result.stdout or "")
 end
 
+-- Find a pane in the current window running (i)python, preferring a
+-- non-active one (the active pane is usually neovim itself).
 local function detect_ipython_pane()
-  local ids = capture("tmux list-panes -F '#{pane_id}:#{pane_current_command}:#{pane_active}' | grep 'python:0' | sed 's/:.*:.*//'")
-  if ids == "" then return nil end
+  local ok, out = tmux({ "list-panes", "-F", "#{pane_id} #{pane_active} #{pane_current_command}" })
+  if not ok then return nil end
 
-  for _, id in ipairs(vim.split(ids, "\n", { trimempty = true })) do
-    return id
+  local fallback
+  for _, line in ipairs(vim.split(out, "\n", { trimempty = true })) do
+    local id, active, cmd = line:match("^(%S+) (%d) (.*)$")
+    if cmd and cmd:match("python") then
+      if active == "0" then return id end
+      fallback = fallback or id
+    end
   end
-
-  return nil
+  return fallback
 end
 
-local function send_block(pane, block)
-  -- %cpaste handles multiline Python without relying on the terminal's
-  -- bracketed-paste mode.  The latter may be disabled by IPython/readline,
-  -- causing its escape sequences to be inserted as literal source text.
-  local result = vim.system(
-    { "tmux", "load-buffer", "-" },
-    { stdin = block }
-  ):wait()
-  if result.code ~= 0 then
-    vim.notify("Could not load the tmux paste buffer", vim.log.levels.ERROR)
-    return false
+-- Write the code to a temp file and let IPython execute it via run_cell.
+-- Only a single short line is typed into the pane, so there are no issues
+-- with paste modes, autoindent or prompt_toolkit swallowing typeahead.
+local function send_block(lines, label)
+  local code = table.concat(lines, "\n")
+  if vim.trim(code) == "" then
+    vim.notify("Nothing to send", vim.log.levels.WARN)
+    return
   end
 
-  vim.fn.system({ "tmux", "send-keys", "-t", pane, "-l", "%cpaste -q" })
-  vim.fn.system({ "tmux", "send-keys", "-t", pane, "Enter" })
-  vim.fn.system({ "tmux", "paste-buffer", "-t", pane })
-  vim.fn.system({ "tmux", "send-keys", "-t", pane, "Enter" })
-  -- The first "--" ends tmux option parsing; the second is the literal
-  -- %cpaste terminator sent to IPython.
-  vim.fn.system({ "tmux", "send-keys", "-t", pane, "-l", "--", "--" })
-  vim.fn.system({ "tmux", "send-keys", "-t", pane, "Enter" })
+  if not vim.env.TMUX then
+    vim.notify("Not running inside tmux", vim.log.levels.ERROR)
+    return
+  end
 
-  if vim.v.shell_error ~= 0 then
+  local pane = detect_ipython_pane()
+  if not pane then
+    vim.notify("No IPython pane detected", vim.log.levels.ERROR)
+    return
+  end
+
+  local file = vim.fn.tempname() .. ".py"
+  vim.fn.writefile(vim.split(code, "\n"), file)
+
+  -- "and None" hides the ExecutionResult so only the cell's own Out[] shows;
+  -- store_history makes _ / Out[n] refer to the cell's result.
+  local cmd = string.format("get_ipython().run_cell(open(%q).read(), store_history=True) and None", file)
+
+  -- Leave copy mode if the pane is scrolled back, otherwise keys go nowhere.
+  local _, in_mode = tmux({ "display-message", "-p", "-t", pane, "#{pane_in_mode}" })
+  if in_mode == "1" then
+    tmux({ "send-keys", "-t", pane, "-X", "cancel" })
+  end
+
+  local ok = tmux({ "send-keys", "-t", pane, "-l", cmd })
+    and tmux({ "send-keys", "-t", pane, "Enter" })
+  if not ok then
     vim.notify("Could not send code to tmux pane " .. pane, vim.log.levels.ERROR)
-    return false
+    return
   end
 
-  return true
+  vim.notify("📤 Sent " .. label .. " → " .. pane)
+end
+
+-- Return the last line (1-based) of the cell containing `line`.
+local function cell_end(lines, line)
+  for i = line + 1, #lines do
+    if lines[i]:match(CELL_MARKER) then return i - 1 end
+  end
+  return #lines
+end
+
+-- Return the first line (1-based) of the cell containing `line`.
+local function cell_start(lines, line)
+  for i = line, 1, -1 do
+    if lines[i]:match(CELL_MARKER) then return i end
+  end
+  return 1
+end
+
+local function strip_markers(lines)
+  return vim.tbl_filter(function(l) return not l:match(CELL_MARKER) end, lines)
 end
 
 function M.send_current_cell()
-  local bufnr = vim.api.nvim_get_current_buf()
-  local cursor = vim.api.nvim_win_get_cursor(0)
-  local cur_line = cursor[1]
-
-  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
-
-  -- Find cell start
-  local start = cur_line
-  while start > 1 do
-    if lines[start]:match("^# %%%%") then break end
-    start = start - 1
-  end
-  if start == 1 and not lines[start]:match("^# %%%%") then start = 1 end
-
-  -- Find cell end
-  local finish = cur_line
-  while finish <= #lines do
-    if finish ~= cur_line and lines[finish]:match("^# %%%%") then
-      finish = finish - 1
-      break
-    end
-    finish = finish + 1
-  end
-  if finish > #lines then finish = #lines end
-
-  -- Extract cell lines, STRIP the "# %%" header
-  local cell_lines = vim.list_slice(lines, start, finish)
-  if cell_lines[1] and cell_lines[1]:match("^# %%%%") then
-    table.remove(cell_lines, 1)
-  end
-
-  local cell = table.concat(cell_lines, "\n")
-
-  -- Detect pane
-  local pane = detect_ipython_pane()
-  if not pane then
-    print("No IPython pane detected")
-    return
-  end
-
-  if send_block(pane, cell) then
-    print("📤 Sent cell → " .. pane)
-  end
+  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+  local cur = vim.api.nvim_win_get_cursor(0)[1]
+  local block = vim.list_slice(lines, cell_start(lines, cur), cell_end(lines, cur))
+  send_block(strip_markers(block), "cell")
 end
 
 function M.send_all_cells_up_to_current()
-  local bufnr = vim.api.nvim_get_current_buf()
-  local cursor = vim.api.nvim_win_get_cursor(0)
-  local cur_line = cursor[1]
-
-  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
-
-  -- Include everything from the start of the file through the current cell.
-  local cells_end = cur_line
-
-  -- Find where the current cell ends
-  while cells_end <= #lines do
-    if cells_end ~= cur_line and lines[cells_end]:match("^# %%%%") then
-      cells_end = cells_end - 1
-      break
-    end
-    cells_end = cells_end + 1
-  end
-  if cells_end > #lines then cells_end = #lines end
-
-  -- Extract everything from the beginning of the file up to end of current cell
-  local block_lines = vim.list_slice(lines, 1, cells_end)
-
-  -- Strip all "# %%" lines (for all earlier cells too)
-  local cleaned = {}
-  for _, l in ipairs(block_lines) do
-    if not l:match("^# %%%%") then
-      table.insert(cleaned, l)
-    end
-  end
-
-  local block = table.concat(cleaned, "\n")
-
-  -- Detect tmux pane running IPython
-  local pane = detect_ipython_pane()
-  if not pane then
-    print("No IPython pane detected")
-    return
-  end
-
-  if send_block(pane, block) then
-    print("📤 Sent ALL cells up to current → " .. pane)
-  end
+  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+  local cur = vim.api.nvim_win_get_cursor(0)[1]
+  local block = vim.list_slice(lines, 1, cell_end(lines, cur))
+  send_block(strip_markers(block), "all cells up to current")
 end
 
 return M
