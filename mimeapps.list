@@ -15,6 +15,7 @@ application/x-extension-shtml=userapp-Glide-UKGTR3.desktop
 application/xhtml+xml=userapp-Glide-UKGTR3.desktop
 application/x-extension-xhtml=userapp-Glide-UKGTR3.desktop
 application/x-extension-xht=userapp-Glide-UKGTR3.desktop
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop
 
 [Added Associations]
 x-scheme-handler/http=userapp-Glide-UKGTR3.desktop;
