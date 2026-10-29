@@ -29,7 +29,7 @@ setup_venv() {
     PYTHON=python${1:-}
     echo "Using $PYTHON"
     "$PYTHON" -m venv --prompt replace-this --upgrade-deps ".venv"
-    sed -i 's/replace-this/\\./g' .venv/bin/activate
+    sed -i 's/replace-this/\./g' .venv/bin/activate
     echo Temporarily activating venv
     source .venv/bin/activate
     echo Installing requirements
