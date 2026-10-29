@@ -19,6 +19,7 @@
 // Options
 glide.o.hint_size = "12px";
 glide.o.native_tabs = "hide";
+glide.prefs.set("browser.nova.enabled", true);
 
 // Custom actions
 const openBookmarksPicker = async () => {
