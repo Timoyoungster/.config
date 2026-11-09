@@ -63,6 +63,7 @@ glide.keymaps.set("normal", "<leader>ft", "commandline_show tab ");
 glide.keymaps.set("normal", "<leader>fb", openBookmarksPicker, {
   description: "Open the bookmarks picker",
 });
+glide.keymaps.set("normal", "u", "tab_reopen");
 
 
 // findbar
