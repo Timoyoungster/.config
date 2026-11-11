@@ -108,6 +108,7 @@ essential_packages=(
 	ttf-cascadia-code
 	1password # [aur]
 	1password-cli # [aur]
+	wayscriber-bin # [aur]
 	
 	# - dev utils
 	volta # [aur]
