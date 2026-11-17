@@ -26,7 +26,7 @@
 # theme = Rose Pine
 # theme = Shaman
 # theme = Wryan
-theme = phantom-shadow.conf
+theme = dimlight.conf
 
 font-family = "Cascadia Mono"
 font-size = 18
@@ -43,7 +43,7 @@ window-padding-y = 8
 window-padding-balance = true
 
 # background
-background-opacity = 0.9 
+background-opacity = 1.0
 background-blur = 0
 
 # auto start tmux
