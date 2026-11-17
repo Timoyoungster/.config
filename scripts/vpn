@@ -1,16 +1,25 @@
 #!/bin/zsh
 
-VPN_USER="op://Private/sgic242a4nhyihwbx76ms3w5vq/username"
-VPN_PASS="op://Private/sgic242a4nhyihwbx76ms3w5vq/password"
-VPN_MFA="op://Private/sgic242a4nhyihwbx76ms3w5vq/one-time password?attribute=otp"
-VPN_METHOD="op://Private/sgic242a4nhyihwbx76ms3w5vq/method"
+ITEM="op://Private/sgic242a4nhyihwbx76ms3w5vq"
 
 if [ $# -gt 0 ] && [ $1 = "backup" ]; then
 	echo "\033[34mINFO:\033[0m Using backup url"
-	VPN_URL="op://Private/sgic242a4nhyihwbx76ms3w5vq/backup-url"
+	URL_FIELD="backup-url"
 else
-	VPN_URL="op://Private/sgic242a4nhyihwbx76ms3w5vq/url"
+	URL_FIELD="url"
 fi
 
+# Secrets go to snx-rs as a config file on stdin, so they never end up in
+# argv (visible via ps) or in the sudo journal log. Only the short-lived
+# MFA code is passed on the command line. The config file expects the
+# password base64-encoded.
+PASS_B64=$(print -rn -- "$(op read "$ITEM/password")" | base64 -w0) || exit 1
+
 echo Connecting to Tunnel ...
-sudo snx-rs -o $(op read $VPN_METHOD) -s $(op read $VPN_URL) -X true -u $(op read $VPN_USER) -p $(op read $VPN_PASS) -F $(op read $VPN_MFA)
+cat <<EOF | sudo snx-rs -c /dev/stdin -F "$(op read "$ITEM/one-time password?attribute=otp")"
+server-name=$(op read "$ITEM/$URL_FIELD")
+login-type=$(op read "$ITEM/method")
+user-name=$(op read "$ITEM/username")
+password=$PASS_B64
+ignore-server-cert=true
+EOF
