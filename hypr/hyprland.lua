@@ -24,7 +24,7 @@ hl.monitor({
 -- hl.monitor({ output = "DP-1",     mode = "3840x2160@120", position = "auto-center-up", scale = 2 })
 -- hl.monitor({ output = "DP-2",     mode = "3840x2160@120", position = "auto-center-up", scale = 2 })
 hl.monitor({ output = "eDP-1",    mode = "2560x1600@180", position = "auto", scale = 1.6 })
-hl.monitor({ output = "HDMI-A-1", mode = "3840x2160@120", position = "auto-center-up", scale = 2 })
+hl.monitor({ output = "HDMI-A-1", mode = "3840x2160@240", position = "auto-center-up", scale = 2 })
 
 function disable_builtin_monitor()
   hl.monitor({ output = "eDP-1", disabled = true})
