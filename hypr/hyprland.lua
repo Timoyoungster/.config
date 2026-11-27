@@ -355,7 +355,7 @@ end)
 
 -- Move workflows to monitors
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.submap("move_workflow"))
-hl.define_submap("move_workflow", function()
+hl.define_submap("move_workflow", 'reset', function()
 
   hl.bind("l", hl.dsp.workspace.move({ monitor = "r" }))
   hl.bind("h", hl.dsp.workspace.move({ monitor = "l" }))
